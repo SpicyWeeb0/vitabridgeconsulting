@@ -1,0 +1,155 @@
+
+<!-- Firebase Compat -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surrogacy Program</title>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<div id="authModal" style="
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+">
+  <div style="
+    background:#fff;
+    padding:2rem;
+    border-radius:20px;
+    width:90%;
+    max-width:400px;
+  ">
+    <h3 id="authTitle">Login</h3>
+
+    <form id="authForm">
+      <input type="email" id="authEmail" placeholder="Email" required style="width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
+      <input type="password" id="authPassword" placeholder="Password" required style="width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
+
+      <input type="password" id="authConfirm" placeholder="Confirm Password" style="display:none;width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
+
+      <button type="submit" class="btn-secondary" style="width:100%;">Submit</button>
+      <p id="authMessage" style="margin-top:1rem;font-size:0.9rem;"></p>
+    <p id="forgotPassword" style="font-size:0.85rem; cursor:pointer; color:#555; margin-bottom:1rem;">
+  Forgot password?
+</p>
+
+    </form>
+  </div>
+</div>
+
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+<header class="header">
+  <div class="container">
+    <div class="logo" id="logo">DZ</div>
+    <nav class="nav" id="mainNav">
+  <span class="nav-item" data-menu="about">About Us</span>
+  <span class="nav-item" data-menu="who">Why Us</span>
+  <span class="nav-item" data-menu="stages">Programs</span>
+  <a href="#contact" class="nav-item">Contact</a>
+
+  <!-- Auth Items -->
+  <span class="nav-item" id="loginBtn">Login</span>
+  <span class="nav-item" id="signupBtn">Sign Up</span>
+
+  <!-- Profile display -->
+  <div id="profileContainer" style="display:none; display:flex; align-items:center; gap:0.8rem;">
+    <span id="profileEmail" style="font-weight:500;"></span>
+    <span class="nav-item" id="logoutBtn">Logout</span>
+  </div>
+</nav>
+
+  </div>
+  <div class="submenu-bar" id="submenuBar"></div>
+</header>
+
+<main id="mainContent">
+
+  <!-- About Section -->
+  <section class="section">
+    <div class="container split">
+      <div class="text reveal">
+        <h3>About Surrogacy</h3>
+        <p>
+          Compassionate, ethical, and professional reproductive care for families worldwide.
+        </p>
+      </div>
+
+      <div class="image-card reveal">
+        <div class="image-badge"></div>
+        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3" alt="">
+        <div class="overlay">
+          <div class="overlay-title">Our Mission</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Section -->
+  <section class="section">
+    <div class="container split reverse">
+      <div class="image-card reveal">
+        <div class="image-badge"></div>
+        <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67" alt="">
+        <div class="overlay">
+          <div class="overlay-title">Family Support</div>
+        </div>
+      </div>
+
+      <div class="text reveal">
+        <h3>Who May Need Surrogacy</h3>
+        <ul>
+          <li>Medical infertility challenges</li>
+          <li>Same-sex couples</li>
+          <li>Repeated IVF failures</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section reveal">
+    <h3>Ready to Begin?</h3>
+    <p>Start your journey with trusted professionals.</p>
+    <a href="#" class="btn-secondary">Get in Touch</a>
+  </section>
+
+</main>
+
+<footer class="footer">
+  © 2026 DZ
+</footer>
+
+<!-- JS -->
+<script src="script.js"></script>
+</body>
+</html>
