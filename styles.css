@@ -813,7 +813,7 @@ body {
 }
 
 .accordion-item.active .accordion-body {
-  max-height: 300px;
+  max-height: 500px;
   padding-bottom: 1.25rem;
 }
 

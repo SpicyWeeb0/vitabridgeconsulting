@@ -44,16 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================ */
   document.querySelectorAll(".accordion-header").forEach(button => {
     button.addEventListener("click", () => {
-      const item = button.parentElement;
-      const isActive = item.classList.contains("active");
-
-      item.closest(".accordion").querySelectorAll(".accordion-item").forEach(i => {
-        i.classList.remove("active");
-      });
-
-      if (!isActive) {
-        item.classList.add("active");
-      }
+      button.parentElement.classList.toggle("active");
     });
   });
 
