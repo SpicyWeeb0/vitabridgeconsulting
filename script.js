@@ -78,7 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
     /* ----- SECTION REVEALS (layered entrance) ----- */
+    /* Exclude elements that have their own dedicated GSAP animations */
+    const dedicatedAnimated = ".program-card, .advantage-item, .trust-item, .journey-step, .accordion-item";
     document.querySelectorAll(".reveal").forEach((el) => {
+      if (el.matches(dedicatedAnimated)) return;
       gsap.fromTo(el,
         { opacity: 0, y: 40 },
         {
@@ -155,28 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    /* ----- JOURNEY: sticky scroll with step activation ----- */
-    const journeySection = document.querySelector(".journey-section");
+    /* ----- JOURNEY: smooth step-by-step reveal on scroll ----- */
     const journeySteps = document.querySelectorAll(".journey-step");
 
-    if (journeySection && journeySteps.length > 0) {
-      // Pin the journey section
-      ScrollTrigger.create({
-        trigger: journeySection,
-        start: "top 10%",
-        end: () => `+=${journeySteps.length * 200}`,
-        pin: true,
-        pinSpacing: true
-      });
-
-      // Activate steps progressively
+    if (journeySteps.length > 0) {
       journeySteps.forEach((step, i) => {
-        ScrollTrigger.create({
-          trigger: journeySection,
-          start: () => `top+=${i * 200} 10%`,
-          end: () => `top+=${(i + 1) * 200} 10%`,
-          onEnter: () => step.classList.add("active"),
-          onLeaveBack: () => step.classList.remove("active")
+        gsap.to(step, {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: step,
+            start: "top 85%",
+            end: "top 60%",
+            scrub: 0.5,
+            onEnter: () => step.classList.add("active"),
+            onLeaveBack: () => step.classList.remove("active")
+          }
         });
       });
     }
