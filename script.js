@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ============================
+     REDUCED MOTION CHECK
+  ============================ */
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ============================
      MOBILE NAV TOGGLE
   ============================ */
   const hamburger = document.getElementById("hamburger");
@@ -12,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
       nav.classList.toggle("open");
     });
 
-    // Close nav when a link is clicked
     nav.querySelectorAll(".nav-link").forEach(link => {
       link.addEventListener("click", () => {
         hamburger.classList.remove("active");
@@ -22,19 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================
-     SCROLL REVEAL
+     HERO STAGGER ENTRANCE
   ============================ */
-  const reveals = document.querySelectorAll(".reveal");
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-
-  reveals.forEach(el => revealObserver.observe(el));
+  const heroContent = document.querySelector(".hero-content");
+  if (heroContent) {
+    if (prefersReducedMotion) {
+      heroContent.classList.add("loaded");
+    } else {
+      requestAnimationFrame(() => {
+        heroContent.classList.add("loaded");
+      });
+    }
+  }
 
   /* ============================
      ACCORDION
@@ -44,12 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const item = button.parentElement;
       const isActive = item.classList.contains("active");
 
-      // Close all siblings in the same accordion
       item.closest(".accordion").querySelectorAll(".accordion-item").forEach(i => {
         i.classList.remove("active");
       });
 
-      // Toggle current
       if (!isActive) {
         item.classList.add("active");
       }
@@ -68,6 +69,209 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  /* ============================
+     GSAP SCROLL ANIMATIONS
+     (only on landing page, only if GSAP loaded)
+  ============================ */
+  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && !prefersReducedMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ----- SECTION REVEALS (layered entrance) ----- */
+    document.querySelectorAll(".reveal").forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            end: "top 50%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    /* ----- HERO PARALLAX (gentle upward drift on scroll) ----- */
+    const heroSection = document.querySelector(".hero");
+    if (heroSection) {
+      gsap.to(heroSection, {
+        y: -60,
+        opacity: 0.6,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroSection,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
+
+    /* ----- PROGRAMS: staggered card reveal ----- */
+    const programCards = document.querySelectorAll(".program-card");
+    if (programCards.length > 0) {
+      gsap.fromTo(programCards,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#programs",
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    /* ----- WHY ARMENIA: "new chapter" entrance ----- */
+    const whyArmenia = document.querySelector("#why-armenia");
+    if (whyArmenia) {
+      const advantageItems = whyArmenia.querySelectorAll(".advantage-item");
+      if (advantageItems.length > 0) {
+        gsap.fromTo(advantageItems,
+          { opacity: 0, x: -20 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: whyArmenia,
+              start: "top 70%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+    }
+
+    /* ----- JOURNEY: sticky scroll with step activation ----- */
+    const journeySection = document.querySelector(".journey-section");
+    const journeySteps = document.querySelectorAll(".journey-step");
+
+    if (journeySection && journeySteps.length > 0) {
+      // Pin the journey section
+      ScrollTrigger.create({
+        trigger: journeySection,
+        start: "top 10%",
+        end: () => `+=${journeySteps.length * 200}`,
+        pin: true,
+        pinSpacing: true
+      });
+
+      // Activate steps progressively
+      journeySteps.forEach((step, i) => {
+        ScrollTrigger.create({
+          trigger: journeySection,
+          start: () => `top+=${i * 200} 10%`,
+          end: () => `top+=${(i + 1) * 200} 10%`,
+          onEnter: () => step.classList.add("active"),
+          onLeaveBack: () => step.classList.remove("active")
+        });
+      });
+    }
+
+    /* ----- TRUST GRID: staggered reveal ----- */
+    const trustItems = document.querySelectorAll(".trust-item");
+    if (trustItems.length > 0) {
+      gsap.fromTo(trustItems,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: "#trust",
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    /* ----- FAQ: gentle entrance, accordion handles the rest ----- */
+    const faqSection = document.querySelector("#faq");
+    if (faqSection) {
+      const accordionItems = faqSection.querySelectorAll(".accordion-item");
+      gsap.fromTo(accordionItems,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: faqSection,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    /* ----- FINAL CTA: soft entrance ----- */
+    const ctaSection = document.querySelector(".cta-section");
+    if (ctaSection) {
+      gsap.fromTo(ctaSection.querySelector(".cta-content"),
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ctaSection,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+  } else if (!prefersReducedMotion) {
+    /* ----- FALLBACK: simple IntersectionObserver if no GSAP ----- */
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Fallback: activate journey steps sequentially
+    const journeySteps = document.querySelectorAll(".journey-step");
+    if (journeySteps.length > 0) {
+      const stepObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      }, { threshold: 0.3 });
+      journeySteps.forEach(el => stepObserver.observe(el));
+    }
+  } else {
+    /* ----- REDUCED MOTION: make everything visible ----- */
+    document.querySelectorAll(".reveal").forEach(el => el.classList.add("active"));
+    document.querySelectorAll(".journey-step").forEach(el => el.classList.add("active"));
+  }
 
 });
 

@@ -628,44 +628,70 @@ body {
 }
 
 /* ==========================================
-   PROCESS TIMELINE
+   JOURNEY / PROCESS (Sticky Scroll)
    ========================================== */
-.process-timeline {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
+.journey-section {
+  padding: 5rem 0 3rem;
+}
+
+.journey-wrapper {
   margin-top: 2.5rem;
 }
 
-.process-step {
-  text-align: center;
-  position: relative;
+.journey-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.journey-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--gray-100);
+  opacity: 0.3;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.journey-step.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .step-number {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
   border-radius: 50%;
-  background: var(--navy);
-  color: var(--white);
+  background: var(--gray-100);
+  color: var(--gray-400);
   font-weight: 700;
   font-size: 1.1rem;
-  margin-bottom: 0.75rem;
+  transition: all 0.5s ease;
 }
 
-.process-step h4 {
-  font-size: 0.95rem;
+.journey-step.active .step-number {
+  background: var(--navy);
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(27,42,74,0.25);
+}
+
+.journey-step-content h4 {
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--navy);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 
-.process-step p {
-  font-size: 0.85rem;
-  color: var(--gray-400);
+.journey-step-content p {
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  max-width: 520px;
 }
 
 /* ==========================================
@@ -1069,17 +1095,81 @@ body {
 }
 
 /* ==========================================
+   HERO STAGGER ANIMATION
+   ========================================== */
+.hero-content > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-content.loaded > * {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-content.loaded > *:nth-child(1) { transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s; }
+.hero-content.loaded > *:nth-child(2) { transition: opacity 0.8s ease 0.25s, transform 0.8s ease 0.25s; }
+.hero-content.loaded > *:nth-child(3) { transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s; }
+.hero-content.loaded > *:nth-child(4) { transition: opacity 0.8s ease 0.55s, transform 0.8s ease 0.55s; }
+.hero-content.loaded > *:nth-child(5) { transition: opacity 0.8s ease 0.7s, transform 0.8s ease 0.7s; }
+.hero-content.loaded > *:nth-child(6) { transition: opacity 0.8s ease 0.85s, transform 0.8s ease 0.85s; }
+.hero-content.loaded > *:nth-child(7) { transition: opacity 0.8s ease 1.0s, transform 0.8s ease 1.0s; }
+
+/* ==========================================
+   SECTION LAYERED TRANSITIONS (GSAP-driven)
+   ========================================== */
+.section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Why Armenia "new chapter" feel */
+#why-armenia {
+  background: linear-gradient(170deg, var(--off-white) 0%, #eef1f6 100%);
+}
+
+/* ==========================================
    REVEAL ANIMATION
    ========================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .reveal.active {
   opacity: 1;
   transform: none;
+}
+
+/* ==========================================
+   REDUCED MOTION
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-content > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .journey-step {
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* ==========================================
@@ -1128,8 +1218,9 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .process-timeline {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  .journey-step {
+    gap: 1rem;
+    padding: 2rem 0;
   }
 
   .program-detail-grid {
@@ -1180,7 +1271,10 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .process-timeline {
-    grid-template-columns: 1fr 1fr;
+  .step-number {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    font-size: 0.95rem;
   }
 }

@@ -22,6 +22,10 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
 
@@ -127,6 +131,7 @@
       <div class="container">
         <h2 class="section-title">Structured Surrogacy Programs in Armenia</h2>
         <p class="section-text">VitaBridge Consulting offers a limited number of structured programs designed to match different medical, legal, and logistical requirements.</p>
+        <p class="section-text">Each program follows a clearly defined framework, ensuring coordination, predictability, and professional oversight throughout the entire process — from initial consultation to birth and documentation.</p>
         <div class="programs-grid">
           <div class="program-card reveal">
             <h3>Standard Program</h3>
@@ -138,6 +143,7 @@
               <li>Surrogate matching, screening, and support</li>
               <li>Pregnancy monitoring through delivery</li>
               <li>Birth organization and documentation assistance</li>
+              <li>IVF cycle and embryo transfer (FET) attempts within a defined framework</li>
             </ul>
             <p class="program-suited"><strong>Suitable for:</strong> Intended parents with straightforward medical scenarios seeking a structured process.</p>
           </div>
@@ -150,7 +156,8 @@
               <li>Surrogate matching and full support</li>
               <li>Continuous case coordination</li>
               <li>Pregnancy care and medical monitoring</li>
-              <li>Multiple IVF cycles and FET attempts</li>
+              <li>Birth and documentation support</li>
+              <li>Multiple IVF cycles and FET attempts within the program</li>
             </ul>
             <p class="program-suited"><strong>Suitable for:</strong> Parents seeking higher process security where multiple attempts may be required.</p>
           </div>
@@ -162,6 +169,8 @@
               <li>Priority handling and case management</li>
               <li>Enhanced medical and operational oversight</li>
               <li>Premium accommodation and logistics</li>
+              <li>Complete birth and documentation coordination</li>
+              <li>Extended IVF/FET attempts within a guaranteed framework</li>
               <li>Advanced embryo selection with genetic testing (PGT-A/NGS)</li>
             </ul>
             <p class="program-suited"><strong>Suitable for:</strong> Parents seeking maximum control and optimization of success rates.</p>
@@ -173,8 +182,9 @@
               <li>Legal structuring for dual-process coordination</li>
               <li>IVF process management across parallel processes</li>
               <li>Shared donor embryo planning</li>
-              <li>Coordination of two surrogate journeys</li>
-              <li>Parallel IVF and FET planning</li>
+              <li>Coordination of two surrogate journeys simultaneously</li>
+              <li>Full pregnancy monitoring and delivery coordination</li>
+              <li>Parallel IVF and embryo transfer (FET) planning</li>
             </ul>
             <p class="program-suited"><strong>Suitable for:</strong> Parents planning a dual surrogacy journey with synchronized family building.</p>
           </div>
@@ -183,50 +193,6 @@
         <div class="section-cta">
           <a href="programs.html" class="btn btn-secondary">Request Program Overview</a>
           <a href="#" class="btn btn-outline">Start Your Confidential Eligibility Check</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section class="section reveal" id="process">
-      <div class="container">
-        <h2 class="section-title">From Initial Consultation to Bringing Your Baby Home</h2>
-        <div class="process-timeline">
-          <div class="process-step reveal">
-            <span class="step-number">1</span>
-            <h4>Eligibility Assessment</h4>
-            <p>Initial consultation and eligibility review</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">2</span>
-            <h4>Legal Structuring</h4>
-            <p>Documentation and legal framework setup</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">3</span>
-            <h4>IVF Process</h4>
-            <p>Embryo creation and medical procedures</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">4</span>
-            <h4>Surrogate Matching</h4>
-            <p>Selection, screening, and preparation</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">5</span>
-            <h4>Pregnancy Monitoring</h4>
-            <p>Ongoing coordination and medical oversight</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">6</span>
-            <h4>Birth &amp; Documentation</h4>
-            <p>Delivery and legal documentation</p>
-          </div>
-          <div class="process-step reveal">
-            <span class="step-number">7</span>
-            <h4>Return Home</h4>
-            <p>Exit process and travel coordination</p>
-          </div>
         </div>
       </div>
     </section>
@@ -244,6 +210,66 @@
         </div>
         <div class="section-cta">
           <a href="why-armenia.html" class="btn btn-secondary">Learn More About Armenia</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY / PROCESS -->
+    <section class="section journey-section reveal" id="process">
+      <div class="container">
+        <h2 class="section-title">From Initial Consultation to Bringing Your Baby Home</h2>
+        <div class="journey-wrapper">
+          <div class="journey-steps">
+            <div class="journey-step" data-step="1">
+              <span class="step-number">1</span>
+              <div class="journey-step-content">
+                <h4>Eligibility Assessment</h4>
+                <p>Initial consultation and eligibility review to determine your path forward.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="2">
+              <span class="step-number">2</span>
+              <div class="journey-step-content">
+                <h4>Legal Structuring</h4>
+                <p>Comprehensive documentation and legal framework setup with qualified professionals.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="3">
+              <span class="step-number">3</span>
+              <div class="journey-step-content">
+                <h4>IVF Process</h4>
+                <p>Embryo creation and coordinated medical procedures under professional oversight.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="4">
+              <span class="step-number">4</span>
+              <div class="journey-step-content">
+                <h4>Surrogate Matching</h4>
+                <p>Structured selection, screening, and preparation based on medical and program requirements.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="5">
+              <span class="step-number">5</span>
+              <div class="journey-step-content">
+                <h4>Pregnancy Monitoring</h4>
+                <p>Ongoing coordination, medical oversight, and continuous communication throughout.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="6">
+              <span class="step-number">6</span>
+              <div class="journey-step-content">
+                <h4>Birth &amp; Documentation</h4>
+                <p>Delivery coordination and completion of all legal documentation and registration.</p>
+              </div>
+            </div>
+            <div class="journey-step" data-step="7">
+              <span class="step-number">7</span>
+              <div class="journey-step-content">
+                <h4>Return Home</h4>
+                <p>Exit process, travel coordination, and return to your home country with your child.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
