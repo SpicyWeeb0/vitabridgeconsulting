@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insights & Guidance — VitaBridge Consulting</title>
+  <meta name="description" content="Structured insights into the surrogacy process in Armenia. Legal framework, process steps, timeline, and program guidance." />
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link active">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Insights &amp; Guidance</h1>
+        <p>Structured information to help you understand the surrogacy process and make informed decisions.</p>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Understanding the Process</h2>
+        <p class="section-text">Surrogacy is a coordinated process involving medical, legal, and organizational components that must work together within a structured framework.</p>
+        <p class="section-text">This section provides clear and focused insights into how the process is managed in Armenia — from legal considerations to process structure and planning.</p>
+        <p class="section-text">Each article is designed to answer key questions and support informed decision-making before entering the process.</p>
+      </div>
+    </section>
+
+    <!-- FEATURED INSIGHT -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Featured Insight</h2>
+        <div class="insight-featured">
+          <h3>Surrogacy in Armenia</h3>
+          <p>A comprehensive overview of how surrogacy programs are structured, including legal framework, process stages, eligibility, and timeline.</p>
+          <p>This article provides a clear starting point for understanding how the process works in practice.</p>
+          <a href="#" class="btn btn-secondary">Read Full Guide</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADDITIONAL INSIGHTS -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Additional Insights</h2>
+        <div class="insights-grid">
+          <div class="insight-card reveal">
+            <h3>Is Surrogacy Legal in Armenia?</h3>
+            <p>An overview of the legal framework governing surrogacy and how regulations are applied in practice.</p>
+            <a href="#" class="insight-link">Read More</a>
+          </div>
+          <div class="insight-card reveal">
+            <h3>How the Surrogacy Process Works Step by Step</h3>
+            <p>A structured explanation of each stage — from consultation to birth and documentation.</p>
+            <a href="#" class="insight-link">Read More</a>
+          </div>
+          <div class="insight-card reveal">
+            <h3>What Affects the Surrogacy Timeline</h3>
+            <p>Key factors influencing the duration of the process and how timelines are managed.</p>
+            <a href="#" class="insight-link">Read More</a>
+          </div>
+          <div class="insight-card reveal">
+            <h3>How to Choose the Right Surrogacy Program</h3>
+            <p>Guidance on selecting a program based on medical factors, process structure, and desired level of coordination.</p>
+            <a href="#" class="insight-link">Read More</a>
+          </div>
+        </div>
+        <p class="section-note">Additional insights are added over time to address key aspects of the process.</p>
+      </div>
+    </section>
+
+    <!-- CONTENT POSITIONING -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Structured Insights, Not General Content</h2>
+        <p class="section-text">The information presented in this section is based on practical process experience and structured program coordination.</p>
+        <p class="section-text">Each article reflects how the process is managed in real conditions, with the objective of providing clarity and relevant guidance.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal">
+      <div class="container cta-content">
+        <h2>Need Personalised Guidance?</h2>
+        <p>Understanding the process is the first step. Structuring it correctly is the next.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><h3>VitaBridge Consulting</h3></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 VitaBridge Consulting</p></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

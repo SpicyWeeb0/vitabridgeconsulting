@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surrogacy Programs — VitaBridge Consulting</title>
+  <meta name="description" content="Explore structured surrogacy programs in Armenia: Standard, Guaranteed, VIP Guaranteed, and Tandem. Compare features and find the right fit." />
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link active">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Surrogacy Programs in Armenia</h1>
+        <p>Structured programs designed to match different medical, legal, and process requirements — from balanced journeys to advanced coordinated strategies.</p>
+        <p>Each program is built to provide clarity, continuity, and full process management from initial consultation to birth and documentation.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Request Program Overview</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Choosing the Right Program</h2>
+        <p class="section-text">Each intended parent's situation is unique. Programs are structured based on:</p>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <h4>Medical Requirements</h4>
+            <p>Tailored to your specific medical scenario</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Process Complexity</h4>
+            <p>Matched to the level of coordination needed</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Number of Procedures</h4>
+            <p>Aligned with expected medical steps</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Level of Control</h4>
+            <p>Desired coordination and oversight depth</p>
+          </div>
+        </div>
+        <p class="section-text">The objective is not simply to select a package, but to follow a structured approach aligned with your specific case.</p>
+      </div>
+    </section>
+
+    <!-- STANDARD PROGRAM -->
+    <section class="section section-alt reveal" id="standard">
+      <div class="container program-detail">
+        <div class="program-detail-header">
+          <h2>Standard Program</h2>
+          <p class="program-detail-tagline">Structured Foundation for the Journey</p>
+        </div>
+        <p>A fully structured program covering all key stages of the surrogacy process within a coordinated framework.</p>
+        <div class="program-detail-grid">
+          <div>
+            <h4>Includes:</h4>
+            <ul>
+              <li>IVF and embryo transfer procedures</li>
+              <li>Surrogate matching, screening, and coordination</li>
+              <li>Legal structuring and documentation</li>
+              <li>Pregnancy monitoring through delivery</li>
+              <li>Birth organization and documentation support</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Best suited for:</h4>
+            <ul>
+              <li>Intended parents seeking a structured and well-managed process</li>
+              <li>Cases with clear medical direction</li>
+              <li>Clients looking for a balanced and efficient approach</li>
+            </ul>
+          </div>
+        </div>
+        <div class="section-cta"><a href="#" class="btn btn-secondary">Request Program Details</a></div>
+      </div>
+    </section>
+
+    <!-- GUARANTEED PROGRAM -->
+    <section class="section reveal" id="guaranteed">
+      <div class="container program-detail">
+        <div class="program-detail-header">
+          <h2>Guaranteed Program</h2>
+          <p class="program-detail-tagline">Continuity and Process Stability</p>
+        </div>
+        <p>A program designed to provide continuity and flexibility throughout the journey.</p>
+        <div class="program-detail-grid">
+          <div>
+            <h4>Includes:</h4>
+            <ul>
+              <li>Multiple IVF and embryo transfer (FET) attempts</li>
+              <li>Continuous process coordination</li>
+              <li>Full legal and medical alignment</li>
+              <li>Surrogate coordination and support</li>
+              <li>Pregnancy care and monitoring</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Best suited for:</h4>
+            <ul>
+              <li>Intended parents seeking higher process stability</li>
+              <li>Cases where additional attempts may be required</li>
+              <li>Clients who want continuity without restarting the process</li>
+            </ul>
+          </div>
+        </div>
+        <div class="section-cta"><a href="#" class="btn btn-secondary">Request Program Details</a></div>
+      </div>
+    </section>
+
+    <!-- VIP GUARANTEED PROGRAM -->
+    <section class="section section-alt reveal" id="vip">
+      <div class="container program-detail">
+        <div class="program-detail-header featured-header">
+          <h2>VIP Guaranteed Program</h2>
+          <p class="program-detail-tagline">Advanced Strategy and Priority Coordination</p>
+        </div>
+        <p>A premium program designed for enhanced control, optimized medical planning, and priority handling.</p>
+        <div class="program-detail-grid">
+          <div>
+            <h4>Includes:</h4>
+            <ul>
+              <li>Advanced IVF strategy and planning</li>
+              <li>Genetic testing (PGT/NGS)</li>
+              <li>Priority coordination and case management</li>
+              <li>Enhanced medical oversight</li>
+              <li>Full process supervision from start to completion</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Best suited for:</h4>
+            <ul>
+              <li>Intended parents seeking maximum control</li>
+              <li>Cases requiring advanced medical strategy</li>
+              <li>Clients prioritizing optimization of outcomes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="section-cta"><a href="#" class="btn btn-secondary">Request Program Details</a></div>
+      </div>
+    </section>
+
+    <!-- TANDEM GUARANTEED PROGRAM -->
+    <section class="section reveal" id="tandem">
+      <div class="container program-detail">
+        <div class="program-detail-header">
+          <h2>Tandem Guaranteed Program</h2>
+          <p class="program-detail-tagline">Dual-Process Coordinated Journey</p>
+        </div>
+        <p>A specialized program enabling parallel surrogacy processes within a unified structure.</p>
+        <div class="program-detail-grid">
+          <div>
+            <h4>Includes:</h4>
+            <ul>
+              <li>Dual IVF and embryo transfer processes</li>
+              <li>Shared donor strategy</li>
+              <li>Coordination of two surrogate journeys</li>
+              <li>Parallel process management and supervision</li>
+              <li>Synchronized planning and execution</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Best suited for:</h4>
+            <ul>
+              <li>Intended parents planning dual surrogacy journeys</li>
+              <li>Clients seeking synchronized family building</li>
+              <li>Cases requiring coordinated parallel processes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="section-cta"><a href="#" class="btn btn-secondary">Request Program Details</a></div>
+      </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section section-alt reveal" id="compare">
+      <div class="container">
+        <h2 class="section-title">Compare Programs at a Glance</h2>
+        <div class="table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Standard</th>
+                <th>Guaranteed</th>
+                <th>VIP Guaranteed</th>
+                <th>Tandem Guaranteed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Process Type</td><td>Single</td><td>Single</td><td>Single</td><td>Dual (parallel)</td></tr>
+              <tr><td>IVF / FET Approach</td><td>Structured</td><td>Extended</td><td>Advanced</td><td>Parallel</td></tr>
+              <tr><td>Process Continuity</td><td>Fully coordinated</td><td>Continuous</td><td>Fully managed</td><td>Coordinated dual</td></tr>
+              <tr><td>Medical Strategy</td><td>Structured</td><td>Enhanced</td><td>Advanced</td><td>Parallel advanced</td></tr>
+              <tr><td>Genetic Testing (PGT/NGS)</td><td>—</td><td>—</td><td>Included</td><td>Included</td></tr>
+              <tr><td>Surrogate Coordination</td><td>Full support</td><td>Full support</td><td>Priority handling</td><td>Dual coordination</td></tr>
+              <tr><td>Case Management</td><td>Structured</td><td>Extended</td><td>Priority</td><td>Advanced</td></tr>
+              <tr><td>Program Complexity</td><td>Structured</td><td>Extended</td><td>Advanced</td><td>Advanced</td></tr>
+              <tr><td>Best For</td><td>Balanced approach</td><td>Stability</td><td>Optimisation</td><td>Dual planning</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVESTMENT -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Investment Structure</h2>
+        <p class="section-text">Each program is structured individually based on medical requirements, program complexity, number of procedures involved, and specific case factors.</p>
+        <p class="section-text">For this reason, detailed financial structure is provided following an initial case review.</p>
+        <div class="section-cta">
+          <a href="#" class="btn btn-secondary">Request Program Overview</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal">
+      <div class="container cta-content">
+        <h2>Not Sure Which Program Fits Your Situation?</h2>
+        <p>Receive a structured recommendation based on your specific case.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><h3>VitaBridge Consulting</h3></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 VitaBridge Consulting</p></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

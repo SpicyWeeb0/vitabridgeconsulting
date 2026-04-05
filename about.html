@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who We Are — VitaBridge Consulting</title>
+  <meta name="description" content="VitaBridge Consulting — a coordination and consulting practice focused on managing surrogacy journeys in Armenia for international intended parents." />
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link active">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Who We Are</h1>
+        <p>A structured approach to guiding intended parents through the surrogacy journey with clarity, control, and professional coordination.</p>
+      </div>
+    </section>
+
+    <!-- WHO WE ARE -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">VitaBridge Consulting</h2>
+        <p class="section-text">VitaBridge Consulting is a coordination and consulting practice focused on managing surrogacy journeys in Armenia for international intended parents.</p>
+        <p class="section-text">Our role is to structure and oversee the process across legal, medical, and logistical stages — ensuring that each step is aligned, controlled, and professionally managed from beginning to completion.</p>
+      </div>
+    </section>
+
+    <!-- OUR APPROACH -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">A Structured and Controlled Approach</h2>
+        <p class="section-text">Surrogacy is a multi-stage process involving multiple participants and dependencies. Without proper coordination, the process can become fragmented and unpredictable.</p>
+        <p class="section-text">Our approach is based on:</p>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <h4>Clear Structuring</h4>
+            <p>Clear program structuring</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Continuous Coordination</h4>
+            <p>Continuous coordination across all stages</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Full Alignment</h4>
+            <p>Alignment between legal, medical, and logistical components</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>No Delays</h4>
+            <p>Maintaining continuity without unnecessary delays</p>
+          </div>
+        </div>
+        <p class="section-text">Each journey is managed as a unified process rather than a series of disconnected steps.</p>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Experience Behind the Process</h2>
+        <p class="section-text">Surrogacy is not a sequence of independent steps, but a complex process where each stage directly impacts the next. Managing this process effectively requires more than structure — it requires experience in how these stages interact in real conditions.</p>
+        <p class="section-text">Our work is supported by over 15 years of direct operational experience in surrogacy and reproductive program management, including involvement at clinical and coordination levels.</p>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <h4>Process Dependencies</h4>
+            <p>Anticipate and manage process dependencies</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Stage Continuity</h4>
+            <p>Maintain continuity across all stages</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Reduced Friction</h4>
+            <p>Reduce delays and operational friction</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Efficiency & Control</h4>
+            <p>Structure the process for efficiency and control</p>
+          </div>
+        </div>
+        <p class="section-text">The difference lies not only in organizing the process, but in actively managing it with practical, hands-on understanding.</p>
+      </div>
+    </section>
+
+    <!-- MANAGEMENT & LEADERSHIP -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Process Leadership and Oversight</h2>
+        <p class="section-text">The operational coordination of each journey is led through direct, hands-on management with extensive experience in surrogacy program execution.</p>
+        <div class="leadership-section">
+          <div class="leadership-photo">
+            <div class="photo-placeholder">
+              <p>Photo Placeholder</p>
+              <span>Managing Director</span>
+            </div>
+          </div>
+          <div class="leadership-text">
+            <p>The Managing Director is responsible for overseeing the full cycle of each case — ensuring that all stages, from initial structuring to final documentation, are aligned and progressing within a controlled framework.</p>
+            <ul class="check-list">
+              <li>Supervision of medical and coordination processes</li>
+              <li>Alignment between all involved parties</li>
+              <li>Monitoring timelines and process flow</li>
+              <li>Maintaining consistency and quality across all stages</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLOBAL NETWORK -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">A Coordinated Professional Network</h2>
+        <p class="section-text">The process is supported by a network of specialized professionals across medical, legal, and operational fields in Armenia.</p>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <h4>Legal Professionals</h4>
+            <p>Experienced Armenian legal professionals specialized in surrogacy-related matters</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Medical Providers</h4>
+            <p>Licensed medical providers and reproductive specialists</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Coordination Teams</h4>
+            <p>Coordination teams involved in different stages of the process</p>
+          </div>
+        </div>
+        <p class="section-text">This network allows each journey to be managed within a structured and interconnected system, ensuring alignment across all components.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal">
+      <div class="container cta-content">
+        <h2>Start with a Structured Approach</h2>
+        <p>Speak with VitaBridge Consulting to understand how your journey can be organized within a clear and controlled framework.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><h3>VitaBridge Consulting</h3></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 VitaBridge Consulting</p></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

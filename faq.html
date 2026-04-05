@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — VitaBridge Consulting</title>
+  <meta name="description" content="Frequently asked questions about surrogacy programs in Armenia. Legal clarity, process details, program selection, and practical guidance." />
+
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link active">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p>Clear answers to common questions about the surrogacy process in Armenia.</p>
+      </div>
+    </section>
+
+    <!-- GENERAL QUESTIONS -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">General Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">What is surrogacy and how does the process work?</button>
+            <div class="accordion-body">
+              <p>Surrogacy is a structured medical and legal process in which a surrogate carries a pregnancy on behalf of intended parents. The process includes medical procedures, legal agreements, and coordinated case management — from initial consultation to birth and documentation.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Who can apply for a surrogacy program?</button>
+            <div class="accordion-body">
+              <p>Eligibility depends on medical, legal, and individual factors. Each case is reviewed individually to determine the appropriate program structure.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How is the appropriate program selected?</button>
+            <div class="accordion-body">
+              <p>Programs are structured based on medical requirements, process complexity, and desired level of coordination. A recommendation is provided following an initial case review.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEGAL QUESTIONS -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Legal Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">Is surrogacy legal in Armenia?</button>
+            <div class="accordion-body">
+              <p>Surrogacy is regulated within the framework of applicable laws governing assisted reproductive technologies. Each case is structured in accordance with these legal provisions. Learn more about the <a href="why-armenia.html">legal framework in Armenia</a>.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How are parental rights established?</button>
+            <div class="accordion-body">
+              <p>Parental rights are established through defined legal procedures and documentation processes aligned with applicable regulations.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Who prepares the legal documents?</button>
+            <div class="accordion-body">
+              <p>Legal documentation is prepared and coordinated with experienced Armenian legal professionals specialized in surrogacy-related matters.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS QUESTIONS -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Process Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">How long does the surrogacy process take?</button>
+            <div class="accordion-body">
+              <p>The timeline depends on individual medical and procedural factors. With structured coordination, the process is managed to progress efficiently across all stages.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">What happens if a pregnancy attempt is not successful?</button>
+            <div class="accordion-body">
+              <p>Depending on the selected program, the process may include continuation options and further attempts within a structured framework.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How is the surrogate selected?</button>
+            <div class="accordion-body">
+              <p>Surrogates are selected through a structured screening and matching process based on medical and program requirements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAM QUESTIONS -->
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">Program Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">What is the difference between the programs?</button>
+            <div class="accordion-body">
+              <p>Programs differ in terms of process continuity, number of attempts, level of coordination, and medical strategy. See the full <a href="programs.html">program comparison</a>.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Which program should I choose?</button>
+            <div class="accordion-body">
+              <p>The appropriate program depends on your specific case. A structured recommendation is provided after reviewing your situation.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Are programs fixed or flexible?</button>
+            <div class="accordion-body">
+              <p>Programs are structured but may be adapted based on individual case requirements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRACTICAL QUESTIONS -->
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Practical Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">How many times do I need to travel?</button>
+            <div class="accordion-body">
+              <p>Travel requirements depend on the stage of the process and are planned in advance. The process is organized to minimize unnecessary visits.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How is communication handled during the process?</button>
+            <div class="accordion-body">
+              <p>Communication is structured and coordinated throughout the journey, ensuring clarity at each stage.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Will I be guided throughout the entire process?</button>
+            <div class="accordion-body">
+              <p>Yes. Each stage is coordinated and managed with ongoing supervision and support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal">
+      <div class="container cta-content">
+        <h2>Still Have Questions?</h2>
+        <p>Receive clear answers based on your specific situation.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><h3>VitaBridge Consulting</h3></div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 VitaBridge Consulting</p></div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

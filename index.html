@@ -1,12 +1,10 @@
-<!-- Firebase Compat -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Surrogacy Program</title>
+  <title>VitaBridge Consulting — Structured Surrogacy Programs in Armenia</title>
+  <meta name="description" content="End-to-end surrogacy coordination in Armenia. Legally structured programs for international intended parents — from consultation to bringing your baby home." />
 
   <!-- Google Tag Manager -->
   <script>
@@ -16,139 +14,378 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TWMCG4L');
   </script>
-  <!-- End Google Tag Manager -->
+
+  <!-- Firebase Compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<div id="authModal" style="
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.4);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-">
-  <div style="
-    background:#fff;
-    padding:2rem;
-    border-radius:20px;
-    width:90%;
-    max-width:400px;
-  ">
-    <h3 id="authTitle">Login</h3>
-
-    <form id="authForm">
-      <input type="email" id="authEmail" placeholder="Email" required style="width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
-      <input type="password" id="authPassword" placeholder="Password" required style="width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
-
-      <input type="password" id="authConfirm" placeholder="Confirm Password" style="display:none;width:100%;padding:0.8rem;margin-bottom:1rem;"><br>
-
-      <button type="submit" class="btn-secondary" style="width:100%;">Submit</button>
-      <p id="authMessage" style="margin-top:1rem;font-size:0.9rem;"></p>
-    <p id="forgotPassword" style="font-size:0.85rem; cursor:pointer; color:#555; margin-bottom:1rem;">
-  Forgot password?
-</p>
-
-    </form>
-  </div>
-</div>
-
 <body>
 
-  <!-- Google Tag Manager (noscript) -->
+  <!-- GTM noscript -->
   <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
-<header class="header">
-  <div class="container">
-    <div class="logo" id="logo">DZ</div>
-    <nav class="nav" id="mainNav">
-  <span class="nav-item" data-menu="about">About Us</span>
-  <span class="nav-item" data-menu="who">Why Us</span>
-  <span class="nav-item" data-menu="stages">Programs</span>
-  <a href="#contact" class="nav-item">Contact</a>
-
-  <!-- Auth Items -->
-  <span class="nav-item" id="loginBtn">Login</span>
-  <span class="nav-item" id="signupBtn">Sign Up</span>
-
-  <!-- Profile display -->
-  <div id="profileContainer" style="display:none; display:flex; align-items:center; gap:0.8rem;">
-    <span id="profileEmail" style="font-weight:500;"></span>
-    <span class="nav-item" id="logoutBtn">Logout</span>
-  </div>
-</nav>
-
-  </div>
-  <div class="submenu-bar" id="submenuBar"></div>
-</header>
-
-<main id="mainContent">
-
-  <!-- About Section -->
-  <section class="section">
-    <div class="container split">
-      <div class="text reveal">
-        <h3>About Surrogacy</h3>
-        <p>
-          Compassionate, ethical, and professional reproductive care for families worldwide.
-        </p>
-      </div>
-
-      <div class="image-card reveal">
-        <div class="image-badge"></div>
-        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3" alt="">
-        <div class="overlay">
-          <div class="overlay-title">Our Mission</div>
-        </div>
-      </div>
+  <!-- Auth Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
     </div>
-  </section>
+  </div>
 
-  <!-- Who Section -->
-  <section class="section">
-    <div class="container split reverse">
-      <div class="image-card reveal">
-        <div class="image-badge"></div>
-        <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67" alt="">
-        <div class="overlay">
-          <div class="overlay-title">Family Support</div>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
         </div>
-      </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-      <div class="text reveal">
-        <h3>Who May Need Surrogacy</h3>
-        <ul>
-          <li>Medical infertility challenges</li>
-          <li>Same-sex couples</li>
-          <li>Repeated IVF failures</li>
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-content">
+        <h1>VitaBridge Consulting</h1>
+        <p class="hero-tagline">Bridging the Path to Parenthood with Structure and Confidence</p>
+        <h2 class="hero-subtitle">Legally Structured Surrogacy Programs in Armenia for International Intended Parents</h2>
+        <p class="hero-desc">End-to-end coordination combining legal clarity, medical expertise, and full process management — from initial consultation to returning home with your child.</p>
+        <ul class="hero-checks">
+          <li>Programs available for international clients</li>
+          <li>Legally structured and professionally coordinated</li>
+          <li>Full process oversight from start to completion</li>
         </ul>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Your Confidential Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+        <p class="hero-note">Confidential &bull; No obligation &bull; Response within 24 hours</p>
+      </div>
+    </section>
+
+    <!-- LEGAL CLARITY -->
+    <section class="section reveal" id="legal">
+      <div class="container">
+        <h2 class="section-title">Is Surrogacy Legal in Armenia?</h2>
+        <p class="section-text">Yes. Armenia provides a defined legal framework that allows surrogacy arrangements, including for international intended parents, when properly structured and documented.</p>
+        <p class="section-text">VitaBridge Consulting ensures coordination with legal and medical professionals to maintain compliance and process clarity at every stage.</p>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <h4>Recognized Registration</h4>
+            <p>Recognized birth registration process</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Structured Agreements</h4>
+            <p>Structured agreements between all parties</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Full Documentation</h4>
+            <p>Full documentation and legal support</p>
+          </div>
+          <div class="feature-card reveal">
+            <h4>Qualified Professionals</h4>
+            <p>Coordination with qualified professionals</p>
+          </div>
+        </div>
+        <div class="section-cta">
+          <a href="why-armenia.html" class="btn btn-secondary">Explore Full Legal Overview</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMS -->
+    <section class="section section-alt reveal" id="programs">
+      <div class="container">
+        <h2 class="section-title">Structured Surrogacy Programs in Armenia</h2>
+        <p class="section-text">VitaBridge Consulting offers a limited number of structured programs designed to match different medical, legal, and logistical requirements.</p>
+        <div class="programs-grid">
+          <div class="program-card reveal">
+            <h3>Standard Program</h3>
+            <p class="program-subtitle">A structured program covering the essential stages of the surrogacy journey.</p>
+            <ul>
+              <li>Legal coordination and contract structuring</li>
+              <li>IVF process management</li>
+              <li>Egg donor coordination</li>
+              <li>Surrogate matching, screening, and support</li>
+              <li>Pregnancy monitoring through delivery</li>
+              <li>Birth organization and documentation assistance</li>
+            </ul>
+            <p class="program-suited"><strong>Suitable for:</strong> Intended parents with straightforward medical scenarios seeking a structured process.</p>
+          </div>
+          <div class="program-card reveal">
+            <h3>Guaranteed Program</h3>
+            <p class="program-subtitle">An extended program designed to provide increased process security and continuity.</p>
+            <ul>
+              <li>Full legal coordination and documentation</li>
+              <li>IVF process management within a guaranteed framework</li>
+              <li>Surrogate matching and full support</li>
+              <li>Continuous case coordination</li>
+              <li>Pregnancy care and medical monitoring</li>
+              <li>Multiple IVF cycles and FET attempts</li>
+            </ul>
+            <p class="program-suited"><strong>Suitable for:</strong> Parents seeking higher process security where multiple attempts may be required.</p>
+          </div>
+          <div class="program-card featured reveal">
+            <h3>VIP Guaranteed Program</h3>
+            <p class="program-subtitle">A premium-level program with enhanced control, advanced medical planning, and priority coordination.</p>
+            <ul>
+              <li>Full end-to-end coordination across all stages</li>
+              <li>Priority handling and case management</li>
+              <li>Enhanced medical and operational oversight</li>
+              <li>Premium accommodation and logistics</li>
+              <li>Advanced embryo selection with genetic testing (PGT-A/NGS)</li>
+            </ul>
+            <p class="program-suited"><strong>Suitable for:</strong> Parents seeking maximum control and optimization of success rates.</p>
+          </div>
+          <div class="program-card reveal">
+            <h3>Tandem Guaranteed Program</h3>
+            <p class="program-subtitle">A specialized program enabling coordinated dual-process surrogacy with a shared donor strategy.</p>
+            <ul>
+              <li>Legal structuring for dual-process coordination</li>
+              <li>IVF process management across parallel processes</li>
+              <li>Shared donor embryo planning</li>
+              <li>Coordination of two surrogate journeys</li>
+              <li>Parallel IVF and FET planning</li>
+            </ul>
+            <p class="program-suited"><strong>Suitable for:</strong> Parents planning a dual surrogacy journey with synchronized family building.</p>
+          </div>
+        </div>
+        <p class="section-note">All programs are individually structured based on medical evaluation, legal requirements, and client-specific circumstances.</p>
+        <div class="section-cta">
+          <a href="programs.html" class="btn btn-secondary">Request Program Overview</a>
+          <a href="#" class="btn btn-outline">Start Your Confidential Eligibility Check</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section reveal" id="process">
+      <div class="container">
+        <h2 class="section-title">From Initial Consultation to Bringing Your Baby Home</h2>
+        <div class="process-timeline">
+          <div class="process-step reveal">
+            <span class="step-number">1</span>
+            <h4>Eligibility Assessment</h4>
+            <p>Initial consultation and eligibility review</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">2</span>
+            <h4>Legal Structuring</h4>
+            <p>Documentation and legal framework setup</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">3</span>
+            <h4>IVF Process</h4>
+            <p>Embryo creation and medical procedures</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">4</span>
+            <h4>Surrogate Matching</h4>
+            <p>Selection, screening, and preparation</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">5</span>
+            <h4>Pregnancy Monitoring</h4>
+            <p>Ongoing coordination and medical oversight</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">6</span>
+            <h4>Birth &amp; Documentation</h4>
+            <p>Delivery and legal documentation</p>
+          </div>
+          <div class="process-step reveal">
+            <span class="step-number">7</span>
+            <h4>Return Home</h4>
+            <p>Exit process and travel coordination</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY ARMENIA -->
+    <section class="section section-alt reveal" id="why-armenia">
+      <div class="container">
+        <h2 class="section-title">Why Choose Armenia</h2>
+        <div class="advantages-grid">
+          <div class="advantage-item reveal">Defined legal framework for surrogacy</div>
+          <div class="advantage-item reveal">Availability for international intended parents</div>
+          <div class="advantage-item reveal">Structured coordination of medical and legal processes</div>
+          <div class="advantage-item reveal">Cost-efficient compared to US and Western Europe</div>
+          <div class="advantage-item reveal">Legally permitted surrogacy for single parents</div>
+        </div>
+        <div class="section-cta">
+          <a href="why-armenia.html" class="btn btn-secondary">Learn More About Armenia</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="section reveal" id="trust">
+      <div class="container">
+        <h2 class="section-title">Built on Structure, Not Promises</h2>
+        <div class="trust-grid">
+          <div class="trust-item reveal">
+            <h4>Professional Coordination</h4>
+            <p>Across all stages of the journey</p>
+          </div>
+          <div class="trust-item reveal">
+            <h4>Legal &amp; Medical Alignment</h4>
+            <p>Integrated process management</p>
+          </div>
+          <div class="trust-item reveal">
+            <h4>Transparent Process</h4>
+            <p>Controlled and predictable progression</p>
+          </div>
+          <div class="trust-item reveal">
+            <h4>Continuous Communication</h4>
+            <p>Ongoing supervision and support</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-alt reveal" id="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">Is surrogacy legal in Armenia?</button>
+            <div class="accordion-body">
+              <p>Yes. Surrogacy is permitted under Armenian law when the process is properly structured and documented. All legal and medical steps must be coordinated in accordance with applicable regulations.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Can international intended parents participate?</button>
+            <div class="accordion-body">
+              <p>Yes. International clients can participate in surrogacy programs in Armenia, subject to proper legal structuring and documentation requirements.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Will I be recognized as the legal parent?</button>
+            <div class="accordion-body">
+              <p>In a properly structured process, intended parents are recognized in official documentation. Specific procedures may vary depending on individual circumstances and nationality.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How long does the process typically take?</button>
+            <div class="accordion-body">
+              <p>The overall timeline varies depending on medical factors and program structure, but most journeys follow a clearly defined sequence from initial consultation to birth and documentation.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Do I need to travel to Armenia?</button>
+            <div class="accordion-body">
+              <p>At least one visit is typically required during the process, depending on the program and medical setup. All travel stages are coordinated in advance.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">What happens after the baby is born?</button>
+            <div class="accordion-body">
+              <p>After delivery, birth registration and required documentation are completed. The final stage includes preparation for travel and return to your home country.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Is donor support available?</button>
+            <div class="accordion-body">
+              <p>Yes. Donor coordination is included where required, with structured selection and medical planning.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">What if additional medical attempts are needed?</button>
+            <div class="accordion-body">
+              <p>Program structure determines how additional attempts are handled. Extended and guaranteed programs are designed to provide continuity without restarting the process.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">How is the surrogate selected?</button>
+            <div class="accordion-body">
+              <p>Surrogates are selected based on medical criteria and program requirements, followed by screening and preparation before the transfer stage.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header">Is the process confidential?</button>
+            <div class="accordion-body">
+              <p>Yes. All communication and case handling are conducted with strict confidentiality and professional discretion.</p>
+            </div>
+          </div>
+        </div>
+        <div class="section-cta">
+          <a href="faq.html" class="btn btn-secondary">View All FAQs</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal" id="contact">
+      <div class="container cta-content">
+        <h2>Start Your Journey with Confidence</h2>
+        <p>Speak with VitaBridge Consulting to understand your options, eligibility, and next steps in a structured and confidential setting.</p>
+        <div class="cta-group">
+          <a href="#" class="btn btn-primary">Start Your Confidential Eligibility Check</a>
+          <a href="#" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+        <p class="hero-note">Confidential &bull; No obligation &bull; Response within 24 hours</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <h3>VitaBridge Consulting</h3>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 VitaBridge Consulting</p>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact-section reveal">
-    <h3>Ready to Begin?</h3>
-    <p>Start your journey with trusted professionals.</p>
-    <a href="#" class="btn-secondary">Get in Touch</a>
-  </section>
-
-</main>
-
-<footer class="footer">
-  © 2026 DZ
-</footer>
-
-<!-- JS -->
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

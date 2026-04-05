@@ -1,152 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const mainContent = document.getElementById("mainContent");
-  const logo = document.getElementById("logo");
-  const submenuBar = document.getElementById("submenuBar");
-  const navItems = document.querySelectorAll(".nav-item[data-menu]");
-  const contactLink = document.querySelector('.nav a[href="#contact"]');
+  /* ============================
+     MOBILE NAV TOGGLE
+  ============================ */
+  const hamburger = document.getElementById("hamburger");
+  const nav = document.getElementById("mainNav");
 
-  // Save original homepage
-  const originalContent = mainContent.innerHTML;
+  if (hamburger && nav) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      nav.classList.toggle("open");
+    });
 
-  /* -------------------------------
-     SUBMENU DATA
-  -------------------------------- */
-  const submenus = {
-    about: [
-      {
-        title: "Our Mission",
-        img: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3",
-        text: "We provide ethical, transparent and compassionate surrogacy services."
-      },
-      {
-        title: "Our Team",
-        img: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-        text: "A multidisciplinary team of doctors, lawyers and coordinators."
-      }
-    ],
-    who: [
-      {
-        title: "Why Choose Us",
-        img: "https://images.unsplash.com/photo-1579154204601-01588f351e67",
-        text: "Personalized care, international experience, legal security."
-      }
-    ],
-    stages: Array.from({ length: 6 }, (_, i) => ({
-      title: `Program ${i + 1}`,
-      img: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3",
-      text: "Detailed explanation of this surrogacy program stage."
-    }))
-  };
-
-  /* -------------------------------
-     REVEAL ANIMATION
-  -------------------------------- */
-  function initReveal() {
-    const reveals = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-          observer.unobserve(entry.target);
-        }
+    // Close nav when a link is clicked
+    nav.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        nav.classList.remove("open");
       });
-    }, { threshold: 0.2 });
-
-    reveals.forEach(el => observer.observe(el));
+    });
   }
 
-  initReveal();
+  /* ============================
+     SCROLL REVEAL
+  ============================ */
+  const reveals = document.querySelectorAll(".reveal");
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
 
-  /* -------------------------------
-     MAIN MENU → SUBMENU
-  -------------------------------- */
-  navItems.forEach(item => {
-    const key = item.dataset.menu;
-    item.addEventListener("mouseenter", () => {
-      submenuBar.innerHTML = submenus[key]
-        .map((sub, i) =>
-          `<li data-menu="${key}" data-index="${i}">${sub.title}</li>`
-        ).join("");
-      submenuBar.classList.add("active");
+  reveals.forEach(el => revealObserver.observe(el));
+
+  /* ============================
+     ACCORDION
+  ============================ */
+  document.querySelectorAll(".accordion-header").forEach(button => {
+    button.addEventListener("click", () => {
+      const item = button.parentElement;
+      const isActive = item.classList.contains("active");
+
+      // Close all siblings in the same accordion
+      item.closest(".accordion").querySelectorAll(".accordion-item").forEach(i => {
+        i.classList.remove("active");
+      });
+
+      // Toggle current
+      if (!isActive) {
+        item.classList.add("active");
+      }
     });
   });
 
-  document.querySelector(".header").addEventListener("mouseleave", () => {
-    submenuBar.classList.remove("active");
-  });
-
-  /* -------------------------------
-     SUBMENU CLICK → LOAD CONTENT
-  -------------------------------- */
-  submenuBar.addEventListener("click", e => {
-    if (e.target.tagName !== "LI") return;
-
-    const menu = e.target.dataset.menu;
-    const index = e.target.dataset.index;
-    const data = submenus[menu][index];
-
-    mainContent.innerHTML = `
-      <div class="loader"></div>
-
-      <section class="section reveal" style="display:none">
-        <div class="container">
-          <h2 style="text-align:center; margin-bottom:2rem;">${data.title}</h2>
-
-          <div class="image-card" style="max-width:700px; margin:auto">
-            <div class="image-badge"></div>
-            <img src="${data.img}" alt="">
-            <div class="overlay">
-              <div class="overlay-title">${data.title}</div>
-            </div>
-          </div>
-
-          <p style="max-width:700px; margin:2rem auto; text-align:center;">
-            ${data.text}
-          </p>
-        </div>
-      </section>
-    `;
-
-    setTimeout(() => {
-      document.querySelector(".loader")?.remove();
-      document.querySelector(".section")?.style.setProperty("display", "block");
-      initReveal();
-    }, 900);
-  });
-
-  /* -------------------------------
-     LOGO → RESTORE HOMEPAGE
-  -------------------------------- */
-  logo.addEventListener("click", () => {
-    mainContent.innerHTML = originalContent;
-    initReveal();
-  });
-
-  /* -------------------------------
-     CONTACT LINK FIX
-  -------------------------------- */
-  if (contactLink) {
-    contactLink.addEventListener("click", e => {
-      e.preventDefault();
-      mainContent.innerHTML = originalContent;
-      initReveal();
-      setTimeout(() => {
-        document.getElementById("contact")
-          ?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+  /* ============================
+     SMOOTH SCROLL FOR ANCHOR LINKS
+  ============================ */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", (e) => {
+      const target = document.querySelector(anchor.getAttribute("href"));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
-  }
+  });
 
 });
-/* ============================
-   FIREBASE SETUP
-============================ */
 
 /* ============================
    FIREBASE SETUP
 ============================ */
-
 const firebaseConfig = {
   apiKey: "AIzaSyDkHrapWQGe-fo-Y_flshYrwNnTcLRSl-I",
   authDomain: "surrogacydz.firebaseapp.com",
@@ -163,7 +90,6 @@ const auth = firebase.auth();
 /* ============================
    UI ELEMENTS
 ============================ */
-
 const loginBtn = document.getElementById("loginBtn");
 const signupBtn = document.getElementById("signupBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -178,106 +104,119 @@ let isSignup = false;
 /* ============================
    OPEN MODAL
 ============================ */
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    isSignup = false;
+    authTitle.textContent = "Login";
+    authConfirm.style.display = "none";
+    authModal.style.display = "flex";
+  });
+}
 
-loginBtn.addEventListener("click", () => {
-  isSignup = false;
-  authTitle.textContent = "Login";
-  authConfirm.style.display = "none";
-  authModal.style.display = "flex";
-});
+if (signupBtn) {
+  signupBtn.addEventListener("click", () => {
+    isSignup = true;
+    authTitle.textContent = "Sign Up";
+    authConfirm.style.display = "block";
+    authModal.style.display = "flex";
+  });
+}
 
-signupBtn.addEventListener("click", () => {
-  isSignup = true;
-  authTitle.textContent = "Sign Up";
-  authConfirm.style.display = "block";
-  authModal.style.display = "flex";
-});
-
-authModal.addEventListener("click", e => {
-  if (e.target === authModal) {
-    authModal.style.display = "none";
-  }
-});
+if (authModal) {
+  authModal.addEventListener("click", (e) => {
+    if (e.target === authModal) {
+      authModal.style.display = "none";
+    }
+  });
+}
 
 /* ============================
    AUTH SUBMIT
 ============================ */
+if (authForm) {
+  authForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-authForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    const email = document.getElementById("authEmail").value;
+    const password = document.getElementById("authPassword").value;
+    const confirm = document.getElementById("authConfirm").value;
 
-  const email = document.getElementById("authEmail").value;
-  const password = document.getElementById("authPassword").value;
-  const confirm = document.getElementById("authConfirm").value;
+    try {
+      if (isSignup) {
+        if (password !== confirm) {
+          authMessage.textContent = "Passwords do not match.";
+          return;
+        }
 
-  try {
-    if (isSignup) {
+        const userCred = await auth.createUserWithEmailAndPassword(email, password);
+        await userCred.user.sendEmailVerification();
+        authMessage.textContent = "Verification email sent. Check spam folder.";
+      } else {
+        const userCred = await auth.signInWithEmailAndPassword(email, password);
 
-      if (password !== confirm) {
-        authMessage.textContent = "Passwords do not match.";
-        return;
+        if (!userCred.user.emailVerified) {
+          authMessage.textContent = "Please verify your email first.";
+          return;
+        }
+
+        authModal.style.display = "none";
       }
-
-      const userCred = await auth.createUserWithEmailAndPassword(email, password);
-      await userCred.user.sendEmailVerification();
-
-      authMessage.textContent = "Verification email sent. Check spam folder.";
-
-    } else {
-
-      const userCred = await auth.signInWithEmailAndPassword(email, password);
-
-      if (!userCred.user.emailVerified) {
-        authMessage.textContent = "Please verify your email first.";
-        return;
-      }
-
-      authModal.style.display = "none";
+    } catch (err) {
+      console.error(err);
+      authMessage.textContent = err.message;
     }
+  });
+}
 
-  } catch (err) {
-    console.error(err);
-    authMessage.textContent = err.message;
-  }
-});
+/* ============================
+   LOGOUT
+============================ */
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await auth.signOut();
+  });
+}
 
-
-logoutBtn.addEventListener("click", async () => {
-  await auth.signOut();
-});
-
+/* ============================
+   AUTH STATE
+============================ */
 auth.onAuthStateChanged((user) => {
   const profileContainer = document.getElementById("profileContainer");
   const profileEmail = document.getElementById("profileEmail");
 
+  if (!profileContainer || !profileEmail) return;
+
   if (user && user.emailVerified) {
-    loginBtn.style.display = "none";
-    signupBtn.style.display = "none";
+    if (loginBtn) loginBtn.style.display = "none";
+    if (signupBtn) signupBtn.style.display = "none";
     profileContainer.style.display = "flex";
     profileEmail.textContent = user.email;
   } else {
-    loginBtn.style.display = "inline-block";
-    signupBtn.style.display = "inline-block";
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (signupBtn) signupBtn.style.display = "inline-block";
     profileContainer.style.display = "none";
   }
 });
 
+/* ============================
+   FORGOT PASSWORD
+============================ */
 const forgotPassword = document.getElementById("forgotPassword");
-forgotPassword.addEventListener("click", async () => {
+if (forgotPassword) {
+  forgotPassword.addEventListener("click", async () => {
+    const email = document.getElementById("authEmail").value;
 
-  const email = document.getElementById("authEmail").value;
+    if (!email) {
+      authMessage.textContent = "Please enter your email above first.";
+      return;
+    }
 
-  if (!email) {
-    authMessage.textContent = "Please enter your email above first.";
-    return;
-  }
-
-  try {
-    await auth.sendPasswordResetEmail(email);
-    authMessage.textContent = "Password reset email sent. Check spam folder.";
-  } catch (err) {
-    console.error(err);
-    authMessage.textContent = err.message;
-  }
-
-});
+    try {
+      await auth.sendPasswordResetEmail(email);
+      authMessage.textContent = "Password reset email sent. Check spam folder.";
+    } catch (err) {
+      console.error(err);
+      authMessage.textContent = err.message;
+    }
+  });
+}
