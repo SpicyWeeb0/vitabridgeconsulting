@@ -1483,3 +1483,11 @@ fieldset.form-field label input[type="number"] {
   font-weight: 700;
 }
 
+/* ==========================================
+   LANDING — WHY CHOOSE ARMENIA BREATHING ROOM
+   (title, advantages grid, and CTA were too tight)
+   ========================================== */
+#why-armenia .section-title { margin-bottom: 2rem; }
+#why-armenia .advantages-grid { margin-top: 2.5rem; gap: 1.5rem; }
+#why-armenia .section-cta { margin-top: 3.5rem; }
+
