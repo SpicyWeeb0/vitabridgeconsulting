@@ -366,6 +366,7 @@ if (authForm) {
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
     await auth.signOut();
+    window.location.href = "index.html";
   });
 }
 
@@ -478,6 +479,7 @@ if (forgotPassword) {
   if (accountLogoutBtn) {
     accountLogoutBtn.addEventListener("click", async () => {
       await auth.signOut();
+      window.location.href = "index.html";
     });
   }
 
