@@ -1278,3 +1278,208 @@ body {
     font-size: 0.95rem;
   }
 }
+
+/* ==========================================
+   ACCOUNT ICON (NAV)
+   ========================================== */
+.account-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  padding: 0.3rem;
+  border-radius: 999px;
+  transition: background var(--transition);
+}
+.account-link:hover { background: var(--gray-100); }
+.account-link svg { display: block; }
+
+/* ==========================================
+   LONG FORM PAGES (eligibility / consultation / program overview)
+   ========================================== */
+.form-section { padding-top: 2.5rem; }
+
+.form-container {
+  max-width: 720px;
+}
+
+.long-form .form-step {
+  padding: 2rem 0 1rem;
+  border-top: 1px solid var(--gray-100);
+}
+.long-form .form-step:first-child { border-top: none; padding-top: 0.5rem; }
+
+.long-form .form-step h3 {
+  font-size: 1.15rem;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+}
+
+.form-field {
+  display: block;
+  margin-bottom: 1.25rem;
+}
+.form-field > span,
+.form-field > legend {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-800);
+  margin-bottom: 0.5rem;
+}
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field input[type="tel"],
+.form-field input[type="number"],
+.form-field input[type="password"],
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  transition: border-color var(--transition);
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+fieldset.form-field {
+  border: none;
+  padding: 0;
+}
+fieldset.form-field label {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  cursor: pointer;
+}
+fieldset.form-field label input[type="radio"],
+fieldset.form-field label input[type="checkbox"] {
+  margin-right: 0.6rem;
+  accent-color: var(--navy);
+}
+fieldset.form-field label span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--gray-800);
+  font-weight: 500;
+}
+fieldset.form-field label input[type="number"] {
+  width: 160px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: inherit;
+}
+
+.form-note {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+
+.form-submit-row {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-100);
+}
+
+.form-thankyou {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.form-thankyou h2 {
+  font-size: 1.6rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+.form-thankyou p {
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+}
+.form-thankyou .cta-group { justify-content: center; }
+
+/* ==========================================
+   ACCOUNT PAGE
+   ========================================== */
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.account-card {
+  background: var(--white);
+  padding: 2rem;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.account-card h3 {
+  font-size: 1.15rem;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.account-label {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+  margin-bottom: 0.3rem;
+}
+
+.account-value {
+  font-size: 1rem;
+  color: var(--navy);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.account-form .form-field { margin-bottom: 1rem; }
+
+.account-message {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  min-height: 1.1rem;
+}
+.account-message.success { color: #1e7a47; }
+.account-message.error { color: #b42318; }
+
+.account-signed-out {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--gray-600);
+}
+.account-signed-out p { margin-bottom: 1.25rem; }
+
+/* ==========================================
+   LEGAL OVERVIEW CONTENT LIST
+   ========================================== */
+.content-list {
+  list-style: none;
+  margin: 0.5rem 0 1.25rem;
+  padding: 0;
+}
+.content-list li {
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.5rem;
+  color: var(--gray-600);
+}
+.content-list li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+

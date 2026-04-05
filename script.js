@@ -412,3 +412,122 @@ if (forgotPassword) {
     }
   });
 }
+
+/* ============================
+   LONG-FORM PAGES (eligibility / consultation / program overview)
+   Show the thank-you state on submit. No backend wired up yet.
+============================ */
+(function () {
+  const formIds = ["eligibilityForm", "consultationForm", "programOverviewForm"];
+  formIds.forEach((id) => {
+    const form = document.getElementById(id);
+    const thankYou = document.getElementById("thankYou");
+    if (!form || !thankYou) return;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.setAttribute("hidden", "");
+      thankYou.removeAttribute("hidden");
+      thankYou.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+})();
+
+/* ============================
+   ACCOUNT PAGE
+============================ */
+(function () {
+  const accountPage = document.getElementById("accountPage");
+  if (!accountPage) return;
+
+  const signedIn = document.getElementById("accountSignedIn");
+  const signedOut = document.getElementById("accountSignedOut");
+  const accountEmail = document.getElementById("accountEmail");
+  const loginTrigger = document.getElementById("accountLoginTrigger");
+  const accountLogoutBtn = document.getElementById("accountLogoutBtn");
+
+  const emailForm = document.getElementById("changeEmailForm");
+  const passwordForm = document.getElementById("changePasswordForm");
+  const emailMessage = document.getElementById("emailMessage");
+  const passwordMessage = document.getElementById("passwordMessage");
+
+  function setMessage(el, text, type) {
+    if (!el) return;
+    el.textContent = text;
+    el.classList.remove("success", "error");
+    if (type) el.classList.add(type);
+  }
+
+  auth.onAuthStateChanged((user) => {
+    if (user && user.emailVerified) {
+      signedIn.removeAttribute("hidden");
+      signedOut.setAttribute("hidden", "");
+      accountEmail.textContent = user.email;
+    } else {
+      signedIn.setAttribute("hidden", "");
+      signedOut.removeAttribute("hidden");
+    }
+  });
+
+  if (loginTrigger) {
+    loginTrigger.addEventListener("click", () => {
+      const btn = document.getElementById("loginBtn");
+      if (btn) btn.click();
+    });
+  }
+
+  if (accountLogoutBtn) {
+    accountLogoutBtn.addEventListener("click", async () => {
+      await auth.signOut();
+    });
+  }
+
+  async function reauthenticate(currentPassword) {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Not signed in.");
+    const cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
+    await user.reauthenticateWithCredential(cred);
+  }
+
+  if (emailForm) {
+    emailForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMessage(emailMessage, "Updating…");
+      const newEmail = document.getElementById("newEmail").value.trim();
+      const currentPassword = document.getElementById("emailCurrentPassword").value;
+      try {
+        await reauthenticate(currentPassword);
+        await auth.currentUser.updateEmail(newEmail);
+        try { await auth.currentUser.sendEmailVerification(); } catch (_) {}
+        setMessage(emailMessage, "Email updated. A verification link has been sent to your new address.", "success");
+        accountEmail.textContent = auth.currentUser.email;
+        emailForm.reset();
+      } catch (err) {
+        console.error(err);
+        setMessage(emailMessage, err.message || "Could not update email.", "error");
+      }
+    });
+  }
+
+  if (passwordForm) {
+    passwordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setMessage(passwordMessage, "Updating…");
+      const currentPassword = document.getElementById("currentPassword").value;
+      const newPassword = document.getElementById("newPassword").value;
+      const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+      if (newPassword !== confirmNewPassword) {
+        setMessage(passwordMessage, "New passwords do not match.", "error");
+        return;
+      }
+      try {
+        await reauthenticate(currentPassword);
+        await auth.currentUser.updatePassword(newPassword);
+        setMessage(passwordMessage, "Password updated successfully.", "success");
+        passwordForm.reset();
+      } catch (err) {
+        console.error(err);
+        setMessage(passwordMessage, err.message || "Could not update password.", "error");
+      }
+    });
+  }
+})();

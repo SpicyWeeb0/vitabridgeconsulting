@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legal Framework of Surrogacy in Armenia — VitaBridge Consulting</title>
+  <meta name="description" content="A full overview of the legal framework governing surrogacy programs in Armenia: eligibility, structure, parental rights, birth registration, and international considerations." />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <!-- Firebase Compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <!-- GTM noscript -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <a href="account.html" class="nav-link account-link" aria-label="Account" title="Account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </a>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Legal Framework of Surrogacy in Armenia</h1>
+        <p>Armenia provides a defined legal framework that permits surrogacy arrangements under regulated conditions.</p>
+        <p>When properly structured, surrogacy programs can be carried out with legal clarity, including the establishment of parental rights and issuance of birth documentation.</p>
+        <p>VitaBridge Consulting coordinates each stage in alignment with applicable legal and procedural requirements.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="legal-status">
+      <div class="container">
+        <h2 class="section-title">Is Surrogacy Legal in Armenia?</h2>
+        <p class="section-text">Yes. Surrogacy is permitted under Armenian law when conducted through proper agreements and medical procedures.</p>
+        <p class="section-text">The process involves:</p>
+        <ul class="content-list">
+          <li>Formal agreements between parties</li>
+          <li>Licensed medical involvement</li>
+          <li>Proper documentation and registration</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal" id="eligibility">
+      <div class="container">
+        <h2 class="section-title">Who Can Participate</h2>
+        <p class="section-text">Surrogacy programs in Armenia are available to:</p>
+        <ul class="content-list">
+          <li>Heterosexual couples</li>
+          <li>Single intended parents (subject to legal and procedural considerations)</li>
+        </ul>
+        <p class="section-text">Eligibility may vary depending on:</p>
+        <ul class="content-list">
+          <li>Nationality</li>
+          <li>Marital status</li>
+          <li>Medical indications</li>
+        </ul>
+        <p class="section-text">Each case is reviewed individually to ensure compliance with applicable regulations.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="structure">
+      <div class="container">
+        <h2 class="section-title">How the Process Is Structured</h2>
+        <p class="section-text">A surrogacy arrangement typically includes:</p>
+        <ul class="content-list">
+          <li>Legal agreements between intended parents and surrogate</li>
+          <li>Medical procedures carried out by licensed clinics</li>
+          <li>Documentation governing parental rights</li>
+          <li>Birth registration procedures</li>
+        </ul>
+        <p class="section-text">All documents must be properly prepared and aligned with Armenian legal requirements.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal" id="parental-rights">
+      <div class="container">
+        <h2 class="section-title">Establishing Legal Parenthood</h2>
+        <p class="section-text">In a properly structured program:</p>
+        <ul class="content-list">
+          <li>Intended parents are recognized as legal parents</li>
+          <li>The surrogate does not retain parental rights after birth (subject to legal framework and agreements)</li>
+          <li>Parentage is reflected in official birth documentation</li>
+          <li>The birth certificate will include only the name of the intended single parent and no reference to the surrogate will be made</li>
+        </ul>
+        <p class="section-text">Legal procedures ensure that parental rights are established in accordance with applicable laws.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="birth-registration">
+      <div class="container">
+        <h2 class="section-title">Birth Certificate and Documentation</h2>
+        <p class="section-text">Following delivery:</p>
+        <ul class="content-list">
+          <li>Birth is registered with relevant authorities</li>
+          <li>Birth certificate is issued reflecting intended parents</li>
+          <li>Additional documentation may be required for international use</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal" id="international">
+      <div class="container">
+        <h2 class="section-title">For International Intended Parents</h2>
+        <p class="section-text">Foreign intended parents can participate in surrogacy programs in Armenia, subject to:</p>
+        <ul class="content-list">
+          <li>Compliance with Armenian legal procedures</li>
+          <li>Documentation requirements</li>
+          <li>Coordination with their home country regulations</li>
+        </ul>
+        <p class="section-text">Exit procedures typically include:</p>
+        <ul class="content-list">
+          <li>Passport application for the child</li>
+          <li>Embassy interaction</li>
+          <li>Travel clearance</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section reveal" id="safeguards">
+      <div class="container">
+        <h2 class="section-title">Process Integrity</h2>
+        <p class="section-text">To ensure a legally compliant process:</p>
+        <ul class="content-list">
+          <li>All agreements must be properly drafted</li>
+          <li>Medical procedures must be conducted through licensed providers</li>
+          <li>Documentation must be accurate and complete</li>
+          <li>Each stage must be coordinated professionally</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal" id="considerations">
+      <div class="container">
+        <h2 class="section-title">Individual Case Review</h2>
+        <p class="section-text">Each surrogacy case is unique.</p>
+        <p class="section-text">Legal, medical, and administrative requirements may vary based on:</p>
+        <ul class="content-list">
+          <li>Country of origin</li>
+          <li>Family structure</li>
+          <li>Medical factors</li>
+        </ul>
+        <p class="section-text">For this reason, every program should be structured individually.</p>
+      </div>
+    </section>
+
+    <section class="section reveal" id="disclaimer">
+      <div class="container">
+        <h2 class="section-title">Disclaimer</h2>
+        <p class="section-text">This overview is provided for general informational purposes only and does not constitute legal advice.</p>
+        <p class="section-text">Specific legal outcomes depend on individual circumstances and applicable regulations.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal" id="contact">
+      <div class="container cta-content">
+        <h2>Request a Legal Overview for Your Case</h2>
+        <p>Speak with VitaBridge Consulting to understand how the legal framework applies to your specific situation.</p>
+        <div class="cta-group">
+          <a href="book-a-private-consultation.html" class="btn btn-primary">Request Legal Consultation</a>
+          <a href="confidential-eligibility-check.html" class="btn btn-outline">Start Your Confidential Eligibility Check</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <h3>VitaBridge Consulting</h3>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 VitaBridge Consulting</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
