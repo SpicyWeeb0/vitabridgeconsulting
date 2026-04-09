@@ -257,7 +257,7 @@ body {
 }
 
 .btn-outline {
-  background: var(--white);
+  background: transparent;
   color: var(--navy);
   border: 2px solid var(--gray-200);
 }
@@ -864,7 +864,6 @@ body {
 }
 
 .cta-section .btn-outline {
-  background: transparent;
   color: var(--white);
   border-color: rgba(255,255,255,0.3);
 }
