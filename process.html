@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Surrogacy Journey — Step by Step — VitaBridge Consulting</title>
+  <meta name="description" content="A structured step-by-step overview of the surrogacy process in Armenia — from initial consultation through birth, documentation, and returning home." />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <!-- Firebase Compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <!-- GTM noscript -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <a href="account.html" class="nav-link account-link" aria-label="Account" title="Account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </a>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Your Surrogacy Journey — Step by Step</h1>
+        <p>Each journey is managed through a structured sequence of legal, medical, and coordination stages.</p>
+        <p>While every case is individual, the process follows a clearly defined framework designed to ensure continuity, control, and transparency from beginning to completion.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">1. Initial Consultation</h2>
+        <p class="section-text">Your journey begins with a confidential consultation to understand your personal situation, medical background, and family planning goals.</p>
+        <p class="section-text">At this stage, you receive a structured overview of available programs, expected timelines, and the most suitable approach for your case.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">2. Case Planning &amp; Program Structuring</h2>
+        <p class="section-text">Following the consultation, your case is reviewed in detail to determine the appropriate program structure.</p>
+        <p class="section-text">This includes evaluation of medical factors, donor requirements, legal considerations, and overall process strategy to ensure a coordinated approach from the outset.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">3. Donor &amp; Medical Preparation</h2>
+        <p class="section-text">If donor support is required, suitable donor options are identified and coordinated.</p>
+        <p class="section-text">At the same time, medical preparation is organized to ensure readiness for the IVF stage, with all procedures planned within a controlled framework.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">4. Legal Structuring</h2>
+        <p class="section-text">All required legal agreements and documentation are prepared and executed in accordance with applicable regulations.</p>
+        <p class="section-text">This stage ensures that the roles, responsibilities, and rights of all parties are clearly defined before proceeding further.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">5. Embryo Creation &amp; Testing</h2>
+        <p class="section-text">Embryos are created under clinical supervision through the IVF process.</p>
+        <p class="section-text">Where included in the program, genetic testing (PGT/NGS) may be performed to support informed embryo selection and optimize outcomes.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">6. Surrogate Matching &amp; Preparation</h2>
+        <p class="section-text">A suitable surrogate is selected based on medical criteria and program requirements.</p>
+        <p class="section-text">The surrogate is then prepared for the transfer process, including medical evaluation and procedural readiness.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">7. Embryo Transfer &amp; Pregnancy Confirmation</h2>
+        <p class="section-text">The selected embryo is transferred, followed by confirmation of pregnancy.</p>
+        <p class="section-text">Once pregnancy is established, the process transitions into a structured monitoring phase.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">8. Pregnancy Monitoring</h2>
+        <p class="section-text">Throughout the pregnancy, medical supervision is maintained with regular updates and coordinated follow-up.</p>
+        <p class="section-text">Each stage is managed to ensure stability, transparency, and continuous communication.</p>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <h2 class="section-title">9. Birth &amp; Legal Documentation</h2>
+        <p class="section-text">Delivery is organized in coordination with medical providers and relevant professionals.</p>
+        <p class="section-text">Following birth, all required documentation is prepared, including official birth registration and supporting legal documents.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt reveal">
+      <div class="container">
+        <h2 class="section-title">10. Exit Process &amp; Return Home</h2>
+        <p class="section-text">The final stage includes completion of administrative procedures and coordination with relevant authorities.</p>
+        <p class="section-text">This ensures that all documentation is finalized, allowing you to return home with your child in a structured and compliant manner.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal" id="contact">
+      <div class="container cta-content">
+        <h2>Ready to Begin?</h2>
+        <p>Speak with VitaBridge Consulting to understand your options and next steps.</p>
+        <div class="cta-group">
+          <a href="confidential-eligibility-check.html" class="btn btn-primary">Start Your Confidential Eligibility Check</a>
+          <a href="request-program-overview.html" class="btn btn-outline">Request Program Overview</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <h3>VitaBridge Consulting</h3>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="process.html">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 VitaBridge Consulting</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
