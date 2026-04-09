@@ -257,7 +257,7 @@ body {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--white);
   color: var(--navy);
   border: 2px solid var(--gray-200);
 }
@@ -265,10 +265,6 @@ body {
 .btn-outline:hover {
   border-color: var(--navy);
   transform: translateY(-2px);
-}
-
-.btn-outline-white {
-  background: var(--white);
 }
 
 .cta-group {
@@ -868,6 +864,7 @@ body {
 }
 
 .cta-section .btn-outline {
+  background: transparent;
   color: var(--white);
   border-color: rgba(255,255,255,0.3);
 }
