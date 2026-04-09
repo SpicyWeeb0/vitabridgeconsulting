@@ -281,6 +281,15 @@ body {
   background: var(--white);
 }
 
+.hero .btn-primary {
+  background: var(--white);
+  color: var(--navy);
+}
+
+.hero .btn-primary:hover {
+  background: var(--gray-100);
+}
+
 .hero-content {
   max-width: 720px;
 }
