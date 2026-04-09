@@ -257,7 +257,7 @@ body {
 }
 
 .btn-outline {
-  background: var(--white);
+  background: transparent;
   color: var(--navy);
   border: 2px solid var(--gray-200);
 }
@@ -265,6 +265,10 @@ body {
 .btn-outline:hover {
   border-color: var(--navy);
   transform: translateY(-2px);
+}
+
+.btn-outline-white {
+  background: var(--white);
 }
 
 .cta-group {
@@ -279,15 +283,6 @@ body {
 .hero {
   padding: 6rem 0 5rem;
   background: var(--white);
-}
-
-.hero .btn-primary {
-  background: var(--white);
-  color: var(--navy);
-}
-
-.hero .btn-primary:hover {
-  background: var(--gray-100);
 }
 
 .hero-content {
