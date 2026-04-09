@@ -257,7 +257,7 @@ body {
 }
 
 .btn-outline {
-  background: transparent;
+  background: var(--white);
   color: var(--navy);
   border: 2px solid var(--gray-200);
 }
