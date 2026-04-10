@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surrogacy in Armenia — Full Overview | VitaBridge Consulting</title>
+  <meta name="description" content="A structured overview of surrogacy in Armenia: legal framework, process stages, eligibility, and how each step is coordinated from consultation to birth." />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TWMCG4L');
+  </script>
+
+  <!-- Firebase Compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+</head>
+<body>
+
+  <!-- GTM noscript -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWMCG4L"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- Auth Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-inner">
+      <h3 id="authTitle">Login</h3>
+      <form id="authForm">
+        <input type="email" id="authEmail" placeholder="Email" required />
+        <input type="password" id="authPassword" placeholder="Password" required />
+        <input type="password" id="authConfirm" placeholder="Confirm Password" />
+        <p id="forgotPassword" class="forgot-link">Forgot password?</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Submit</button>
+        <p id="authMessage" class="auth-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">VitaBridge</a>
+      <nav class="nav" id="mainNav">
+        <a href="about.html" class="nav-link">Who We Are</a>
+        <a href="programs.html" class="nav-link">Programs</a>
+        <a href="why-armenia.html" class="nav-link">Why Armenia</a>
+        <a href="faq.html" class="nav-link">FAQ</a>
+        <a href="insights.html" class="nav-link active">Insights</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <span class="nav-link auth-link" id="loginBtn">Login</span>
+        <span class="nav-link auth-link" id="signupBtn">Sign Up</span>
+        <div id="profileContainer" class="profile-container">
+          <span id="profileEmail"></span>
+          <a href="account.html" class="nav-link account-link" aria-label="Account" title="Account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </a>
+          <span class="nav-link auth-link" id="logoutBtn">Logout</span>
+        </div>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Surrogacy in Armenia</h1>
+        <p>Surrogacy in Armenia is a structured process supported by a defined legal and operational framework.</p>
+        <p>For international intended parents, the process combines medical procedures, legal structuring, and coordinated case management into a unified system.</p>
+        <p>When properly organized, surrogacy can be managed with clarity, continuity, and controlled progression from initial consultation to birth and documentation.</p>
+      </div>
+    </section>
+
+    <!-- WHAT IS SURROGACY -->
+    <section class="section reveal" id="what-is-surrogacy">
+      <div class="container">
+        <h2 class="section-title">What Is Surrogacy?</h2>
+        <p class="section-text">Surrogacy is a process in which a surrogate carries a pregnancy on behalf of intended parents.</p>
+        <p class="section-text">The journey typically includes:</p>
+        <ul class="content-list">
+          <li>Medical procedures such as IVF and embryo transfer</li>
+          <li>Legal agreements defining roles and responsibilities</li>
+          <li>Ongoing coordination and supervision throughout the pregnancy</li>
+          <li>Finalization of documentation after birth</li>
+        </ul>
+        <p class="section-text">Each stage is interconnected and requires structured management to ensure proper alignment.</p>
+      </div>
+    </section>
+
+    <!-- LEGAL STATUS -->
+    <section class="section section-alt reveal" id="legal-status">
+      <div class="container">
+        <h2 class="section-title">Is Surrogacy Legal in Armenia?</h2>
+        <p class="section-text">Surrogacy is regulated within the framework of laws governing assisted reproductive technologies.</p>
+        <p class="section-text">The process is conducted through:</p>
+        <ul class="content-list">
+          <li>Formal agreements between all involved parties</li>
+          <li>Defined procedures for establishing parental rights</li>
+          <li>Structured documentation and registration processes</li>
+        </ul>
+        <p class="section-text">Each case is organized in accordance with applicable regulations to ensure compliance and clarity. A dedicated overview is available in our <a href="insights-article-2.html">legal framework article</a>.</p>
+      </div>
+    </section>
+
+    <!-- WHO CAN APPLY -->
+    <section class="section reveal" id="eligibility">
+      <div class="container">
+        <h2 class="section-title">Who Can Apply?</h2>
+        <p class="section-text">Eligibility depends on a combination of medical, legal, and individual factors.</p>
+        <p class="section-text">Surrogacy programs are typically structured for:</p>
+        <ul class="content-list">
+          <li>Intended parents with medical indications</li>
+          <li>Individuals or couples requiring assisted reproductive support</li>
+        </ul>
+        <p class="section-text">Each case is reviewed individually to determine eligibility and appropriate program structure.</p>
+      </div>
+    </section>
+
+    <!-- HOW THE PROCESS WORKS -->
+    <section class="section section-alt reveal" id="process">
+      <div class="container">
+        <h2 class="section-title">How the Process Works</h2>
+        <p class="section-text">The surrogacy journey is organized in stages.</p>
+
+        <h3>1. Initial Consultation and Case Review</h3>
+        <p class="section-text"><strong>Assessment of medical background, goals, and program suitability.</strong></p>
+        <p class="section-text">The surrogacy process typically begins with an initial consultation, during which intended parent(s) discuss their medical history, goals, and available options with a specialist, who explains the legal, medical, and logistical aspects of the program. This is followed by a case review, where the clinic's multidisciplinary team evaluates the provided medical records and overall circumstances to determine eligibility, recommend the most appropriate treatment plan, and outline the next steps.</p>
+
+        <h3>2. Program Structuring</h3>
+        <p class="section-text"><strong>Selection of appropriate program and planning of process stages.</strong></p>
+        <p class="section-text">Since there are several surrogacy programs available, the selection process is based on a comprehensive assessment of the client's individual circumstances, including medical history, reproductive goals, timeline, and budget, as well as legal considerations. Following this evaluation, the most appropriate program is recommended by the agency to ensure the highest chances of success while aligning with the client's specific needs and expectations.</p>
+
+        <h3>3. Medical Preparation</h3>
+        <p class="section-text"><strong>Initial visit in the clinic, IVF procedures, embryo preparation, and medical coordination.</strong></p>
+        <p class="section-text">Medical preparation of intended parent(s) begins with a thorough evaluation, including detailed medical history, fertility assessments (such as hormonal testing, ovarian reserve evaluation, and sperm analysis), and screening for infectious and genetic conditions. Based on the findings, a personalized treatment plan is created. For female intended parents using their own eggs, hormonal stimulation is initiated to promote the development of multiple follicles, followed by monitoring through ultrasound and blood tests. Male intended parents may undergo sperm preparation or provide samples in advance. Overall health optimization and any necessary treatments are completed before proceeding.</p>
+        <p class="section-text">Embryo creation (IVF process): Eggs are retrieved from the intended mother or an egg donor. The collected eggs are then fertilized with sperm (from the intended father or a donor) in the laboratory using conventional IVF or ICSI (intracytoplasmic sperm injection). The resulting embryos are cultured for several days (typically 5 days), and in some cases, genetic testing (PGT) may be performed to assess embryo quality and detect potential chromosomal abnormalities.</p>
+        <p class="section-text">Intended parents are continuously supported throughout the process by a dedicated team that typically includes medical coordinators, fertility specialists, and patient managers, who guide them at every stage and remain available for any questions or concerns. They are kept fully informed about each step through regular updates, consultations, and reports, including treatment progress, embryo development, and transfer outcomes, ensuring complete transparency and allowing them to feel involved, reassured, and confident throughout the entire journey.</p>
+
+        <h3>4. Surrogate Matching</h3>
+        <p class="section-text"><strong>Selection and preparation of a suitable surrogate.</strong></p>
+        <p class="section-text">The surrogate selection and matching process involves careful screening of candidates based on medical history, psychological evaluation, and lifestyle factors to ensure they are physically and emotionally fit for the program. Once approved, intended parents are presented with suitable profiles and matched with a surrogate whose characteristics, expectations, and preferences align with theirs, ensuring a comfortable and mutually agreed partnership.</p>
+
+        <h3>5. Legal Structuring</h3>
+        <p class="section-text"><strong>Preparation and execution of agreements and documentation.</strong></p>
+        <p class="section-text">Before the embryo transfer, the legal aspects are carefully organized, and a notarized agreement is structured and signed between the intended parents and the surrogate in accordance with Armenian law, ensuring that the post-birth legal process proceeds smoothly and without complications.</p>
+
+        <h3>6. Embryo Transfer and Pregnancy Monitoring</h3>
+        <p class="section-text"><strong>Medical procedures followed by ongoing supervision of pregnancy.</strong></p>
+        <p class="section-text">The surrogate is carefully screened and medically prepared for embryo transfer, a process that takes about 20 days. Once pregnant, she is closely monitored by the clinic and agency representatives with regular check-ups, while intended parents are kept informed after each visit to ensure everything progresses smoothly.</p>
+
+        <h3>7. Birth and Documentation</h3>
+        <p class="section-text"><strong>Finalization of legal procedures and documentation after delivery.</strong></p>
+        <p class="section-text">Each stage is coordinated to ensure continuity and proper sequencing. After the birth, DNA testing is conducted to establish biological relationships between the surrogate and the child, as well as between the intended parent and the child. Once the DNA results are received, a birth certificate is issued listing only the intended parent(s) as the legal parent(s), a process that typically takes around 7 days. Following this, the intended parent(s) must apply for the child's passport at their home country's embassy, noting that each embassy has specific requirements and processing timelines which should be confirmed in advance with a lawyer from their home country. Our legal team provides full support in preparing all necessary documentation for the birth certificate and embassy to ensure a smooth process.</p>
+
+        <p class="section-text">A dedicated step-by-step breakdown is available in our <a href="insights-article-3.html">process article</a>.</p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section reveal" id="timeline">
+      <div class="container">
+        <h2 class="section-title">Timeline</h2>
+        <p class="section-text">The duration of the process depends on individual medical and procedural factors.</p>
+        <p class="section-text">With structured coordination, the timeline is managed to:</p>
+        <ul class="content-list">
+          <li>Maintain continuity between stages</li>
+          <li>Reduce unnecessary delays</li>
+          <li>Ensure clear progression of the process</li>
+        </ul>
+        <p class="section-text">Each case is planned individually based on its specific requirements. For a closer look at the factors that influence duration, see our <a href="insights-article-4.html">timeline article</a>.</p>
+      </div>
+    </section>
+
+    <!-- LEGAL & PROCESS COORDINATION -->
+    <section class="section section-alt reveal" id="coordination">
+      <div class="container">
+        <h2 class="section-title">Legal and Process Coordination</h2>
+        <p class="section-text">Surrogacy requires alignment between legal and medical components.</p>
+        <p class="section-text">The process is supported by:</p>
+        <ul class="content-list">
+          <li>Structured legal documentation</li>
+          <li>Coordination with experienced Armenian legal professionals</li>
+          <li>Alignment of legal procedures with medical timelines</li>
+        </ul>
+        <p class="section-text">This ensures that each stage is managed within a controlled and compliant framework.</p>
+      </div>
+    </section>
+
+    <!-- WHY STRUCTURE MATTERS -->
+    <section class="section reveal" id="why-structure">
+      <div class="container">
+        <h2 class="section-title">Why Structure Matters</h2>
+        <p class="section-text">Surrogacy is not a sequence of independent steps.</p>
+        <p class="section-text">Each stage affects the next, and without proper coordination, the process can become fragmented.</p>
+        <p class="section-text">A structured approach allows:</p>
+        <ul class="content-list">
+          <li>Clear organization of each stage</li>
+          <li>Continuity across medical and legal processes</li>
+          <li>Reduced operational uncertainty</li>
+          <li>Better overall process control</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONCLUSION -->
+    <section class="section section-alt reveal" id="conclusion">
+      <div class="container">
+        <h2 class="section-title">Conclusion</h2>
+        <p class="section-text">Surrogacy in Armenia offers a structured environment where the process can be managed with clarity and coordination.</p>
+        <p class="section-text">Understanding how the process works is the first step toward making informed decisions. Continue exploring: <a href="programs.html">our programs</a>, <a href="why-armenia.html">why Armenia</a>, or the <a href="faq.html">frequently asked questions</a>.</p>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section cta-section reveal" id="contact">
+      <div class="container cta-content">
+        <h2>Start with a Structured Approach</h2>
+        <p>Receive guidance tailored to your specific situation.</p>
+        <div class="cta-group">
+          <a href="confidential-eligibility-check.html" class="btn btn-primary">Start Eligibility Check</a>
+          <a href="book-a-private-consultation.html" class="btn btn-outline">Book Private Consultation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <h3>VitaBridge Consulting</h3>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <a href="index.html#legal">Legal Clarity</a>
+          <a href="programs.html">Programs</a>
+          <a href="index.html#process">Process</a>
+        </div>
+        <div class="footer-col">
+          <a href="why-armenia.html">Why Armenia</a>
+          <a href="about.html">Who We Are</a>
+          <a href="faq.html">FAQ</a>
+          <a href="insights.html">Insights</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 VitaBridge Consulting</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
