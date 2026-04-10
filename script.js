@@ -533,3 +533,98 @@ if (forgotPassword) {
     });
   }
 })();
+
+/* ============================================
+   LUXURY LAYER — cursor, scroll-aware nav
+   ============================================
+   Appended, purely additive. Does not touch
+   any existing handlers above this block.
+   ============================================ */
+(function luxuryLayer() {
+  const supportsFinePointer = window.matchMedia &&
+    window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* ---- Custom cursor ---- */
+  if (supportsFinePointer) {
+    const cursor = document.createElement('div');
+    cursor.id = 'lux-cursor';
+    const ring = document.createElement('div');
+    ring.id = 'lux-cursor-ring';
+    document.body.appendChild(cursor);
+    document.body.appendChild(ring);
+
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    let rafId = null;
+
+    const onMove = (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+      if (!document.body.classList.contains('lux-ready')) {
+        document.body.classList.add('lux-ready');
+      }
+    };
+    document.addEventListener('mousemove', onMove, { passive: true });
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
+      ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      if (document.body.classList.contains('lux-ready')) {
+        cursor.style.opacity = '';
+        ring.style.opacity = '';
+      }
+    });
+
+    const animateRing = () => {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      rafId = requestAnimationFrame(animateRing);
+    };
+    animateRing();
+
+    // Hover state on interactive elements
+    const hoverSelector = 'a, button, input, textarea, select, label, .accordion-header, .insight-card, .feature-card, .program-card, .advantage-item, .trust-item, .journey-step, .insight-link, .nav-link, .hamburger';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverSelector)) {
+        document.body.classList.add('lux-hover');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverSelector) &&
+          (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest(hoverSelector))) {
+        document.body.classList.remove('lux-hover');
+      }
+    });
+  }
+
+  /* ---- Scroll-aware nav states ---- */
+  const header = document.querySelector('.header');
+  if (header) {
+    const darkSelectors = '.cta-section, .footer';
+    const updateNav = () => {
+      const scrolled = window.scrollY > 40;
+      let onDark = false;
+      document.querySelectorAll(darkSelectors).forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= 90 && r.bottom >= 90) onDark = true;
+      });
+      header.classList.toggle('on-dark', onDark);
+      header.classList.toggle('scrolled', scrolled && !onDark);
+      document.body.classList.toggle('on-dark-section', onDark);
+    };
+    updateNav();
+    let scrollRaf = null;
+    window.addEventListener('scroll', () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        updateNav();
+        scrollRaf = null;
+      });
+    }, { passive: true });
+    window.addEventListener('resize', updateNav);
+  }
+})();
