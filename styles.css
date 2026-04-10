@@ -1563,6 +1563,196 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 }
 
 /* ==========================================
+   LEGISLATIVE ACTS (Why Armenia)
+   ========================================== */
+.legislative-acts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.legislative-act {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 2rem;
+  padding: 2.75rem 2.5rem;
+  background: var(--off-white);
+  border: 1px solid rgba(47,58,52,0.08);
+  border-left: 3px solid var(--accent);
+  border-radius: 1px;
+  transition: all 0.55s var(--ease);
+  position: relative;
+}
+
+.legislative-act:nth-child(even) {
+  background: var(--mint);
+  border-left-color: var(--navy);
+}
+
+.legislative-act::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.6s var(--ease);
+}
+
+.legislative-act:nth-child(even)::before { background: var(--navy); }
+
+.legislative-act:hover {
+  transform: translateX(4px);
+  box-shadow: 0 22px 50px rgba(85,107,98,0.1);
+  border-left-width: 5px;
+}
+
+.legislative-act:hover::before {
+  width: 100%;
+}
+
+.act-number {
+  font-family: var(--serif);
+  font-size: 3.25rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0.75;
+  align-self: start;
+  padding-top: 0.25rem;
+}
+
+.legislative-act:nth-child(even) .act-number {
+  color: var(--navy);
+}
+
+.act-body { min-width: 0; }
+
+.act-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.1vw, 30px);
+  font-weight: 500;
+  color: var(--gray-800);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: 0.4rem;
+}
+
+.act-subtitle {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+}
+
+.act-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(194,168,120,0.45);
+  transition: all 0.35s var(--ease);
+  margin-bottom: 1.75rem;
+}
+
+.act-link:hover {
+  color: var(--navy);
+  border-bottom-color: var(--navy);
+  gap: 0.8rem;
+}
+
+.act-heading {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--gray-800);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.act-note {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(194,168,120,0.1);
+  border-left: 2px solid var(--accent);
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--navy-dark);
+  line-height: 1.75;
+  border-radius: 1px;
+}
+
+.legislative-act:nth-child(even) .act-note {
+  background: rgba(111,135,122,0.08);
+  border-left-color: var(--navy);
+}
+
+.act-note strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.act-pullquote {
+  margin-top: 3.5rem;
+  padding: 2.5rem 3rem;
+  background: linear-gradient(135deg, var(--gray-50) 0%, var(--mint) 100%);
+  border-left: 3px solid var(--accent);
+  border-radius: 1px;
+  font-family: var(--serif);
+  font-size: clamp(18px, 1.8vw, 24px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--navy-dark);
+  line-height: 1.55;
+  max-width: 920px;
+  position: relative;
+  box-shadow: 0 18px 44px rgba(85,107,98,0.08);
+}
+
+.act-pullquote::before {
+  content: "\201C";
+  position: absolute;
+  left: 1rem;
+  top: -0.5rem;
+  font-family: var(--serif);
+  font-size: 5rem;
+  font-weight: 400;
+  color: var(--accent);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+@media (max-width: 720px) {
+  .legislative-act {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2.25rem 1.75rem;
+  }
+  .act-number {
+    font-size: 2.5rem;
+  }
+  .act-pullquote {
+    padding: 2rem 1.75rem 2rem 2.25rem;
+  }
+}
+
+/* ==========================================
    LEADERSHIP (About)
    ========================================== */
 .leadership-section {
