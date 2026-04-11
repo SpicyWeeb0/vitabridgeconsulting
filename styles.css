@@ -2448,3 +2448,38 @@ fieldset.form-field label input[type="number"] {
 #why-armenia .advantages-grid { margin-top: 2.5rem; gap: 1.5rem; }
 #why-armenia .section-cta { margin-top: 3.5rem; }
 
+/* ==========================================
+   PROCESS PAGE — step numeration & spacing
+   ========================================== */
+.process-page .section {
+  padding: 9rem 0;
+}
+
+.process-page .step-number {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 300;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin-bottom: 1.25rem;
+  opacity: 0.9;
+}
+
+/* Numeral replaces the gold eyebrow rule on this page */
+.process-page .section-title {
+  padding-top: 0;
+}
+.process-page .section-title::before {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .process-page .section { padding: 6rem 0; }
+  .process-page .step-number { font-size: clamp(40px, 9vw, 56px); }
+}
+@media (max-width: 480px) {
+  .process-page .section { padding: 5rem 0; }
+}
+
