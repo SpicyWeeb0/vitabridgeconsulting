@@ -6,6 +6,101 @@ document.addEventListener("DOMContentLoaded", () => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ============================
+     CINEMATIC TEXT SPLITTERS
+     Runtime-only splitting — never edits the
+     HTML source. Splits .hero-content h1 /
+     .hero-subtitle into per-line masks and
+     .section-title / .page-hero h1 into per-word
+     spans for fade+blur reveal.
+  ============================ */
+  function splitIntoLines(el, maxLines = 5) {
+    if (!el || el.dataset.split === "1") return;
+    // Skip if element contains nested markup (not plain text)
+    if (el.children.length > 0) return;
+    const text = el.textContent.trim();
+    if (!text) return;
+
+    const words = text.split(/\s+/);
+    // First pass: render each word as an inline-block so we can measure offsetTop
+    el.textContent = "";
+    const probe = document.createElement("span");
+    probe.style.display = "inline";
+    words.forEach((w, i) => {
+      const s = document.createElement("span");
+      s.style.display = "inline-block";
+      s.textContent = w + (i < words.length - 1 ? " " : "");
+      probe.appendChild(s);
+    });
+    el.appendChild(probe);
+
+    // Group words into visual lines by offsetTop
+    const lines = [];
+    let currentLine = [];
+    let currentTop = null;
+    probe.querySelectorAll("span").forEach((s) => {
+      const top = s.offsetTop;
+      if (currentTop === null || Math.abs(top - currentTop) < 2) {
+        currentLine.push(s.textContent);
+        currentTop = top;
+      } else {
+        lines.push(currentLine.join("").trimEnd());
+        currentLine = [s.textContent];
+        currentTop = top;
+      }
+    });
+    if (currentLine.length) lines.push(currentLine.join("").trimEnd());
+
+    // Rebuild with line masks
+    el.textContent = "";
+    lines.slice(0, maxLines).forEach((lineText, idx) => {
+      const mask = document.createElement("span");
+      mask.className = "line-mask lm-" + (idx + 1);
+      const inner = document.createElement("span");
+      inner.className = "line-inner";
+      inner.textContent = lineText;
+      mask.appendChild(inner);
+      el.appendChild(mask);
+    });
+    el.dataset.split = "1";
+  }
+
+  function splitIntoWords(el) {
+    if (!el || el.dataset.wsplit === "1") return;
+    if (el.children.length > 0) return;
+    const text = el.textContent.trim();
+    if (!text) return;
+
+    const words = text.split(/\s+/);
+    el.textContent = "";
+    el.classList.add("word-split");
+    words.forEach((w, i) => {
+      const s = document.createElement("span");
+      s.className = "word";
+      s.style.setProperty("--i", i);
+      s.textContent = w;
+      el.appendChild(s);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+    el.dataset.wsplit = "1";
+  }
+
+  function runCinematicSplits() {
+    if (prefersReducedMotion) return;
+    const heroH1 = document.querySelector(".hero-content h1");
+    const heroSub = document.querySelector(".hero-content .hero-subtitle");
+    if (heroH1) splitIntoLines(heroH1, 3);
+    if (heroSub) splitIntoLines(heroSub, 4);
+    document.querySelectorAll(".section-title, .page-hero h1").forEach(splitIntoWords);
+  }
+
+  // Wait for webfonts to settle so line measurement is accurate
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(runCinematicSplits).catch(runCinematicSplits);
+  } else {
+    requestAnimationFrame(runCinematicSplits);
+  }
+
+  /* ============================
      MOBILE NAV TOGGLE
   ============================ */
   const hamburger = document.getElementById("hamburger");
@@ -30,12 +125,22 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================ */
   const heroContent = document.querySelector(".hero-content");
   if (heroContent) {
-    if (prefersReducedMotion) {
+    const activateHero = () => {
       heroContent.classList.add("loaded");
+      heroContent.querySelectorAll(".line-mask").forEach((m) => m.classList.add("lm-ready"));
+    };
+    if (prefersReducedMotion) {
+      activateHero();
     } else {
-      requestAnimationFrame(() => {
-        heroContent.classList.add("loaded");
-      });
+      // Wait a tick past splitter so masks exist before we toggle .lm-ready.
+      // document.fonts.ready resolves asynchronously, so delay hero activation
+      // until after splits can run.
+      const kickHero = () => requestAnimationFrame(activateHero);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(kickHero).catch(kickHero);
+      } else {
+        requestAnimationFrame(kickHero);
+      }
     }
   }
 
@@ -67,6 +172,19 @@ document.addEventListener("DOMContentLoaded", () => {
   ============================ */
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && !prefersReducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.defaults({ ease: "expo.out" });
+
+    // Helper: fire the CSS-driven cinematic reveals (.active on the section,
+    // .ws-in on any word-split titles inside it) so paragraph blur + gold
+    // underline sweeps run in sync with the GSAP tween.
+    const activateCinematic = (el) => {
+      el.classList.add("active");
+      el.querySelectorAll(".word-split").forEach((w) => w.classList.add("ws-in"));
+    };
+    const deactivateCinematic = (el) => {
+      el.classList.remove("active");
+      el.querySelectorAll(".word-split").forEach((w) => w.classList.remove("ws-in"));
+    };
 
     /* ----- SECTION REVEALS (layered entrance) ----- */
     /* Exclude elements that have their own dedicated GSAP animations */
@@ -74,28 +192,32 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".reveal").forEach((el) => {
       if (el.matches(dedicatedAnimated)) return;
       gsap.fromTo(el,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 48 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: "power2.out",
+          duration: 1.6,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
             end: "top 50%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none reverse",
+            onEnter: () => activateCinematic(el),
+            onEnterBack: () => activateCinematic(el),
+            onLeaveBack: () => deactivateCinematic(el)
           }
         }
       );
     });
 
-    /* ----- HERO PARALLAX (gentle upward drift on scroll) ----- */
+    /* ----- HERO PARALLAX (layered cinematic drift) ----- */
     const heroSection = document.querySelector(".hero");
     if (heroSection) {
+      // Base drift of the whole hero band
       gsap.to(heroSection, {
-        y: -60,
-        opacity: 0.6,
+        y: -90,
+        opacity: 0.55,
         ease: "none",
         scrollTrigger: {
           trigger: heroSection,
@@ -104,19 +226,49 @@ document.addEventListener("DOMContentLoaded", () => {
           scrub: true
         }
       });
+
+      // H1 drifts faster — gives a layered depth feel
+      const heroH1 = heroSection.querySelector(".hero-content h1");
+      if (heroH1) {
+        gsap.to(heroH1, {
+          y: -140,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroSection,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
+
+      // Mid-layer (desc + checks) drifts at an intermediate speed
+      const heroMid = heroSection.querySelectorAll(".hero-desc, .hero-checks");
+      if (heroMid.length > 0) {
+        gsap.to(heroMid, {
+          y: -60,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroSection,
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
     }
 
     /* ----- PROGRAMS: staggered card reveal ----- */
     const programCards = document.querySelectorAll(".program-card");
     if (programCards.length > 0) {
       gsap.fromTo(programCards,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
+          duration: 1.3,
+          stagger: 0.22,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: "#programs",
             start: "top 70%",
@@ -132,13 +284,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const advantageItems = whyArmenia.querySelectorAll(".advantage-item");
       if (advantageItems.length > 0) {
         gsap.fromTo(advantageItems,
-          { opacity: 0, x: -20 },
+          { opacity: 0, x: -40 },
           {
             opacity: 1,
             x: 0,
-            duration: 0.7,
-            stagger: 0.12,
-            ease: "power2.out",
+            duration: 1.2,
+            stagger: 0.18,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: whyArmenia,
               start: "top 70%",
@@ -173,13 +325,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const trustItems = document.querySelectorAll(".trust-item");
     if (trustItems.length > 0) {
       gsap.fromTo(trustItems,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 44 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.out",
+          duration: 1.2,
+          stagger: 0.16,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: "#trust",
             start: "top 75%",
@@ -194,13 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (faqSection) {
       const accordionItems = faqSection.querySelectorAll(".accordion-item");
       gsap.fromTo(accordionItems,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: 32 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: "power2.out",
+          duration: 1.1,
+          stagger: 0.14,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: faqSection,
             start: "top 75%",
@@ -214,12 +366,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctaSection = document.querySelector(".cta-section");
     if (ctaSection) {
       gsap.fromTo(ctaSection.querySelector(".cta-content"),
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 48 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: "power2.out",
+          duration: 1.5,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: ctaSection,
             start: "top 80%",
@@ -229,6 +381,12 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
 
+    // After all splits + ScrollTriggers are set up, refresh once webfonts
+    // finish so trigger positions account for any late layout shifts.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh()).catch(() => {});
+    }
+
   } else if (!prefersReducedMotion) {
     /* ----- FALLBACK: simple IntersectionObserver if no GSAP ----- */
     const reveals = document.querySelectorAll(".reveal");
@@ -236,12 +394,29 @@ document.addEventListener("DOMContentLoaded", () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("active");
+          // Fire cinematic word-split reveals inside the section
+          entry.target.querySelectorAll(".word-split").forEach((w) => w.classList.add("ws-in"));
           revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.15 });
 
     reveals.forEach(el => revealObserver.observe(el));
+
+    // Also catch standalone word-split titles that aren't inside a .reveal
+    // (e.g. the initial .page-hero h1 on interior pages).
+    const looseWordSplits = document.querySelectorAll(".word-split");
+    if (looseWordSplits.length > 0) {
+      const wsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("ws-in");
+            wsObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      looseWordSplits.forEach(el => wsObserver.observe(el));
+    }
 
     // Fallback: activate journey steps sequentially
     const journeySteps = document.querySelectorAll(".journey-step");
@@ -259,6 +434,30 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ----- REDUCED MOTION: make everything visible ----- */
     document.querySelectorAll(".reveal").forEach(el => el.classList.add("active"));
     document.querySelectorAll(".journey-step").forEach(el => el.classList.add("active"));
+    document.querySelectorAll(".line-mask").forEach(m => m.classList.add("lm-ready"));
+    document.querySelectorAll(".word-split").forEach(w => w.classList.add("ws-in"));
+  }
+
+  // Safety net: reveal .page-hero word-split titles immediately on interior
+  // pages (they sit above the fold, so the normal scroll trigger wouldn't
+  // fire). Must run AFTER the splitter has finished, so chain off fonts.ready
+  // with the same ordering as the splitter above.
+  if (!prefersReducedMotion) {
+    const revealPageHeroTitles = () => {
+      const pageHero = document.querySelector(".page-hero");
+      if (!pageHero) return;
+      pageHero.querySelectorAll(".word-split").forEach((w) => {
+        // Double rAF so the base CSS paints before .ws-in transitions start
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => w.classList.add("ws-in"));
+        });
+      });
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(revealPageHeroTitles).catch(revealPageHeroTitles);
+    } else {
+      requestAnimationFrame(revealPageHeroTitles);
+    }
   }
 
 });

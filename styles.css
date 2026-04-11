@@ -2021,7 +2021,7 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
    ========================================== */
 .hero-content > * {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(44px);
 }
 
 .hero-content.loaded > * {
@@ -2029,13 +2029,108 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   transform: none;
 }
 
-.hero-content.loaded > *:nth-child(1) { transition: opacity 1.2s var(--ease) 0.15s, transform 1.2s var(--ease) 0.15s; }
-.hero-content.loaded > *:nth-child(2) { transition: opacity 1.2s var(--ease) 0.32s, transform 1.2s var(--ease) 0.32s; }
-.hero-content.loaded > *:nth-child(3) { transition: opacity 1.2s var(--ease) 0.48s, transform 1.2s var(--ease) 0.48s; }
-.hero-content.loaded > *:nth-child(4) { transition: opacity 1.2s var(--ease) 0.62s, transform 1.2s var(--ease) 0.62s; }
-.hero-content.loaded > *:nth-child(5) { transition: opacity 1.2s var(--ease) 0.76s, transform 1.2s var(--ease) 0.76s; }
-.hero-content.loaded > *:nth-child(6) { transition: opacity 1.2s var(--ease) 0.88s, transform 1.2s var(--ease) 0.88s; }
-.hero-content.loaded > *:nth-child(7) { transition: opacity 1.2s var(--ease) 1.0s, transform 1.2s var(--ease) 1.0s; }
+.hero-content.loaded > *:nth-child(1) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.20s; }
+.hero-content.loaded > *:nth-child(2) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.42s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.42s; }
+.hero-content.loaded > *:nth-child(3) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.62s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.62s; }
+.hero-content.loaded > *:nth-child(4) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.80s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.80s; }
+.hero-content.loaded > *:nth-child(5) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.96s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.96s; }
+.hero-content.loaded > *:nth-child(6) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.10s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.10s; }
+.hero-content.loaded > *:nth-child(7) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.22s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.22s; }
+
+/* ==========================================
+   CINEMATIC TEXT REVEALS
+   Runtime-split line masks + word fade/blur.
+   Hero H1 / H2 get line masks; section titles
+   and page-hero H1s get word splits with a
+   gold underline sweep. Added April 2026.
+   ========================================== */
+
+/* --- Line mask primitive (hero headlines) --- */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1.08;
+  padding-bottom: 0.12em;
+}
+.line-inner {
+  display: block;
+  transform: translateY(115%);
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.line-mask.lm-ready .line-inner { transform: translateY(0); }
+.line-mask.lm-ready.lm-1 .line-inner { transition-delay: 0.18s; }
+.line-mask.lm-ready.lm-2 .line-inner { transition-delay: 0.34s; }
+.line-mask.lm-ready.lm-3 .line-inner { transition-delay: 0.50s; }
+.line-mask.lm-ready.lm-4 .line-inner { transition-delay: 0.66s; }
+.line-mask.lm-ready.lm-5 .line-inner { transition-delay: 0.82s; }
+
+/* When hero H1/H2 are split into line masks, the raw element no longer
+   needs the nth-child fade (the masks handle it) — neutralise it so we
+   don't double-animate. */
+.hero-content h1:has(.line-mask),
+.hero-content .hero-subtitle:has(.line-mask) {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Word split primitive (section titles + page-hero H1) --- */
+.word-split .word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(24px);
+  transition:
+    opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 0.06s);
+  will-change: opacity, filter, transform;
+}
+.word-split.ws-in .word {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* --- Gold underline sweep beneath section titles --- */
+.section-title { position: relative; }
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.45em;
+  height: 1px;
+  width: 72px;
+  background: var(--accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s;
+}
+.reveal.active .section-title::after,
+.section-title.ws-in::after { transform: scaleX(1); }
+
+/* --- Paragraph / body text blur-in inside revealed sections --- */
+.reveal .section-text,
+.reveal .hero-note,
+.reveal .page-hero .lede,
+.reveal p.subtitle {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(22px);
+  transition:
+    opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+    filter 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s,
+    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+.reveal.active .section-text,
+.reveal.active .hero-note,
+.reveal.active .page-hero .lede,
+.reveal.active p.subtitle {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
 
 /* ==========================================
    SECTION LAYERED TRANSITIONS (GSAP-driven)
@@ -2065,8 +2160,8 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
    ========================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 1.3s var(--ease), transform 1.3s var(--ease);
+  transform: translateY(48px);
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
@@ -2075,15 +2170,17 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   transform: none;
 }
 
-/* Stagger heading reveal within sections slightly later */
-.reveal .section-title,
-.reveal .page-hero h1 {
+/* Stagger heading reveal within sections slightly later.
+   Note: when the word-split JS runs, it takes over the H1/section-title
+   animation; these rules still apply as a fallback when JS is absent. */
+.reveal .section-title:not(.word-split),
+.reveal .page-hero h1:not(.word-split) {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 1.2s var(--ease) 0.1s, transform 1.2s var(--ease) 0.1s;
+  transform: translateY(28px);
+  transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s, transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
 }
-.reveal.active .section-title,
-.reveal.active .page-hero h1 {
+.reveal.active .section-title:not(.word-split),
+.reveal.active .page-hero h1:not(.word-split) {
   opacity: 1;
   transform: none;
 }
@@ -2111,6 +2208,31 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   .journey-step {
     opacity: 1;
     transform: none;
+  }
+
+  /* Cinematic reveal overrides */
+  .line-inner {
+    transform: none !important;
+    transition: none !important;
+  }
+  .word-split .word {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .section-title::after {
+    transform: scaleX(1) !important;
+    transition: none !important;
+  }
+  .reveal .section-text,
+  .reveal .hero-note,
+  .reveal .page-hero .lede,
+  .reveal p.subtitle {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
   }
 
   html {
