@@ -2163,16 +2163,20 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
    gold underline sweep. Added April 2026.
    ========================================== */
 
-/* --- Line mask primitive (hero headlines) --- */
+/* --- Line mask primitive (hero headlines) ---
+   With a display serif at 52–88px, descenders on "g" / "y" extend ~0.2em
+   below the baseline. Too-tight values cause line 1's descender to get
+   clipped flush against line 2's cap-tops, producing the visual "merge".
+   Inherit the parent's line-height (1.04 on the h1, 1.45 on the subtitle)
+   and rely on padding-bottom to give descenders clean breathing room. */
 .line-mask {
   display: block;
   overflow: hidden;
-  line-height: 1.08;
-  padding-bottom: 0.12em;
+  padding-bottom: 0.22em;
 }
 .line-inner {
   display: block;
-  transform: translateY(115%);
+  transform: translateY(130%);
   transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }

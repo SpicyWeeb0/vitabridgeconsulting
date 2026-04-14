@@ -89,10 +89,19 @@ document.addEventListener("DOMContentLoaded", () => {
      spans for fade+blur reveal.
   ============================ */
   function splitIntoLines(el, maxLines = 5) {
-    if (!el || el.dataset.split === "1") return;
-    // Skip if element contains nested markup (not plain text)
-    if (el.children.length > 0) return;
-    const text = el.textContent.trim();
+    if (!el) return;
+    // On first call, snapshot the original plain text so we can re-split later
+    // (e.g. on viewport resize) without losing the source content.
+    if (el.dataset.originalText === undefined) {
+      if (el.children.length > 0) return; // nested markup: bail once, forever
+      el.dataset.originalText = el.textContent.trim();
+    } else {
+      // Restore original text before re-splitting.
+      el.textContent = el.dataset.originalText;
+    }
+    if (el.dataset.split === "1" && !el.dataset.resplit) return;
+    el.dataset.resplit = "";
+    const text = el.dataset.originalText;
     if (!text) return;
 
     const words = text.split(/\s+/);
@@ -140,9 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function splitIntoWords(el) {
-    if (!el || el.dataset.wsplit === "1") return;
-    if (el.children.length > 0) return;
-    const text = el.textContent.trim();
+    if (!el) return;
+    if (el.dataset.originalText === undefined) {
+      if (el.children.length > 0) return;
+      el.dataset.originalText = el.textContent.trim();
+    } else {
+      el.textContent = el.dataset.originalText;
+    }
+    if (el.dataset.wsplit === "1" && !el.dataset.resplit) return;
+    el.dataset.resplit = "";
+    const text = el.dataset.originalText;
     if (!text) return;
 
     const words = text.split(/\s+/);
@@ -174,6 +190,29 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     requestAnimationFrame(runCinematicSplits);
   }
+
+  // Re-run the splitter when the viewport changes width enough to re-wrap.
+  // Without this, a measurement taken at one width stays frozen — "VitaBridge
+  // Consulting" ends up with line masks computed for the wrong layout.
+  let lastSplitWidth = window.innerWidth;
+  let resplitTimer = null;
+  window.addEventListener("resize", () => {
+    if (Math.abs(window.innerWidth - lastSplitWidth) < 30) return;
+    if (resplitTimer) clearTimeout(resplitTimer);
+    resplitTimer = setTimeout(() => {
+      lastSplitWidth = window.innerWidth;
+      document.querySelectorAll("[data-original-text]").forEach((el) => {
+        el.dataset.resplit = "1";
+      });
+      runCinematicSplits();
+      // Any .line-mask that existed is now re-built; reapply .lm-ready so the
+      // new masks aren't stuck in their pre-animation state.
+      document.querySelectorAll(".line-mask").forEach((m) => m.classList.add("lm-ready"));
+      document.querySelectorAll(".word-split").forEach((w) => {
+        if (w.closest(".reveal.active, .page-hero")) w.classList.add("ws-in");
+      });
+    }, 220);
+  });
 
   /* ============================
      MOBILE NAV TOGGLE
