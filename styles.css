@@ -24,6 +24,10 @@
   --deep: #1A2420;
   --accent: #C2A878;
   --accent-light: #D4BD94;
+  --bronze: #A8834C;
+  --sage-deep: #3F5249;
+  --sage-soft: #B8C9BE;
+  --cream: #FAF6EE;
   --radius: 12px;
   --radius-lg: 20px;
   --shadow-sm: 0 2px 12px rgba(85,107,98,0.06);
@@ -144,6 +148,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 3rem;
   padding: 1.75rem 0;
   transition: padding 0.5s var(--ease);
 }
@@ -186,6 +191,15 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   display: flex;
   align-items: center;
   gap: 2.6rem;
+  flex-wrap: nowrap;
+}
+
+/* Tighten the nav gap at medium widths so all links fit on one row */
+@media (max-width: 1200px) {
+  .nav { gap: 1.75rem; }
+}
+@media (max-width: 1024px) {
+  .nav { gap: 1.3rem; }
 }
 
 .nav-link {
@@ -199,6 +213,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   text-transform: uppercase;
   letter-spacing: 0.16em;
   opacity: 0.55;
+  white-space: nowrap;
 }
 
 .header.on-dark .nav-link { color: var(--off-white); }
@@ -443,6 +458,15 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   align-items: center;
 }
 
+/* Layered colour wash behind the hero — subtle sage + gold radial tints */
+.hero {
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 18%, rgba(111,135,122,0.10), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 92% 82%, rgba(194,168,120,0.12), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 78% 12%, rgba(131,158,145,0.08), transparent 70%),
+    var(--off-white);
+}
+
 /* decorative floating serif character */
 .hero::before {
   content: "V";
@@ -452,7 +476,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   font-family: var(--serif);
   font-size: clamp(320px, 45vw, 540px);
   font-weight: 300;
-  color: rgba(47,58,52,0.028);
+  color: rgba(85,107,98,0.045);
   line-height: 1;
   pointer-events: none;
   letter-spacing: -0.06em;
@@ -467,7 +491,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   right: 0;
   bottom: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(47,58,52,0.1) 50%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(194,168,120,0.35) 50%, transparent);
 }
 
 @keyframes heroFloat {
@@ -499,7 +523,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.24em;
-  margin-bottom: 2.75rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -577,12 +601,6 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
 .hero-checks li:first-child { padding-left: 1.5rem; }
 .hero-checks li:first-child::before { left: 0; }
 .hero-checks li:last-child { border-right: none; }
-
-.hero-checks li:last-child { border-right: none; }
-
-.hero-checks li::before {
-  content: "";
-}
 
 .hero-note {
   margin-top: 1.5rem;
@@ -676,7 +694,10 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
 }
 
 .section-alt {
-  background: var(--gray-50);
+  background:
+    radial-gradient(ellipse 50% 40% at 85% 12%, rgba(194,168,120,0.14), transparent 65%),
+    radial-gradient(ellipse 55% 50% at 8% 88%, rgba(63,82,73,0.12), transparent 70%),
+    var(--gray-100);
   position: relative;
 }
 
@@ -719,9 +740,10 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   position: absolute;
   left: 0;
   top: 0;
-  width: 48px;
-  height: 1px;
-  background: var(--accent);
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--accent) 100%);
+  border-radius: 2px;
 }
 
 .section-text {
@@ -807,9 +829,10 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   padding: 2.5rem 2rem;
   border: 1px solid rgba(47,58,52,0.07);
   border-top: 2px solid var(--accent);
-  border-radius: 1px;
+  border-radius: 2px;
   transition: all 0.5s var(--ease);
   position: relative;
+  overflow: hidden;
 }
 
 .feature-card::before {
@@ -818,18 +841,26 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   left: 0;
   bottom: 0;
   width: 0;
-  height: 1px;
-  background: var(--navy);
+  height: 2px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--accent) 100%);
   transition: width 0.6s var(--ease);
 }
 
-.section-alt .feature-card {
+/* Alternate sage/gold top accents across the grid for visual rhythm */
+.feature-card:nth-child(even) {
+  border-top-color: var(--navy);
   background: var(--off-white);
 }
+.feature-card:nth-child(even)::before {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--navy) 100%);
+}
+
+.section-alt .feature-card { background: var(--off-white); }
+.section-alt .feature-card:nth-child(even) { background: var(--mint); }
 
 .feature-card:hover {
-  box-shadow: 0 20px 50px rgba(85,107,98,0.1);
-  transform: translateY(-3px);
+  box-shadow: 0 24px 56px rgba(85,107,98,0.14), 0 0 0 1px rgba(194,168,120,0.2);
+  transform: translateY(-4px);
 }
 
 .feature-card:hover::before {
@@ -873,12 +904,17 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .program-card {
   background: var(--off-white);
   padding: 2.75rem 2.25rem;
-  border-radius: 1px;
+  border-radius: 2px;
   border: 1px solid rgba(47,58,52,0.1);
-  border-top: 2px solid var(--navy);
+  border-top: 3px solid var(--navy);
   transition: all 0.5s var(--ease);
   position: relative;
+  overflow: hidden;
 }
+
+/* Rotate through sage → bronze → gold top borders */
+.program-card:nth-child(3n+2) { border-top-color: var(--bronze); }
+.program-card:nth-child(3n)   { border-top-color: var(--accent); }
 
 .program-card::before {
   content: "";
@@ -887,10 +923,16 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: var(--accent);
+  background: linear-gradient(180deg, var(--accent) 0%, var(--bronze) 100%);
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.55s var(--ease);
+}
+.program-card:nth-child(3n+2)::before {
+  background: linear-gradient(180deg, var(--navy) 0%, var(--sage-deep) 100%);
+}
+.program-card:nth-child(3n)::before {
+  background: linear-gradient(180deg, var(--bronze) 0%, var(--navy) 100%);
 }
 
 .program-card:hover {
@@ -905,23 +947,31 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .program-card.featured {
   border: 1px solid var(--accent);
   border-top: 2px solid var(--accent);
-  background: linear-gradient(180deg, var(--mint) 0%, var(--gray-50) 100%);
-  box-shadow: 0 20px 50px rgba(194,168,120,0.18);
+  background:
+    radial-gradient(ellipse 70% 40% at 80% 0%, rgba(194,168,120,0.14), transparent 70%),
+    linear-gradient(180deg, var(--mint) 0%, var(--gray-50) 100%);
+  box-shadow: 0 24px 60px rgba(194,168,120,0.22);
   position: relative;
 }
+
+/* Reserve space so the h3 can't collide with the Premium badge */
+.program-card.featured h3 { padding-right: 5.25rem; }
 
 .program-card.featured::after {
   content: "Premium";
   position: absolute;
-  top: 1.25rem;
-  right: 1.5rem;
+  top: 1.15rem;
+  right: 1.4rem;
   color: var(--accent);
+  background: rgba(194,168,120,0.1);
+  border: 1px solid rgba(194,168,120,0.35);
   font-family: var(--sans);
-  font-size: 0.6rem;
-  font-weight: 400;
-  padding: 0;
+  font-size: 0.58rem;
+  font-weight: 500;
+  padding: 0.3rem 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.22em;
+  border-radius: 1px;
 }
 
 .program-card h3 {
@@ -1098,9 +1148,40 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 
 /* ==========================================
    JOURNEY / PROCESS (Sticky Scroll)
+   Dark cinematic band — contrasts with the
+   ivory sections above & below.
    ========================================== */
 .journey-section {
-  padding: 5rem 0 3rem;
+  padding: 7rem 0 5rem;
+  background:
+    radial-gradient(ellipse 60% 45% at 15% 10%, rgba(194,168,120,0.10), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 88% 90%, rgba(111,135,122,0.15), transparent 70%),
+    var(--deep);
+  color: var(--off-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+.journey-section .container { position: relative; z-index: 1; }
+
+.journey-section .section-title {
+  color: var(--off-white);
+}
+.journey-section .section-title::before {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+}
+.journey-section .section-title::after {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 55%, var(--sage-soft) 100%);
 }
 
 .journey-wrapper {
@@ -1118,13 +1199,13 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   grid-template-columns: 56px 1fr;
   gap: 2rem;
   padding: 2.75rem 0;
-  border-bottom: 1px solid rgba(47,58,52,0.08);
+  border-bottom: 1px solid rgba(194,168,120,0.12);
   opacity: 0.3;
   transform: translateY(10px);
   transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
 }
 
-.journey-step:first-child { border-top: 1px solid rgba(47,58,52,0.08); }
+.journey-step:first-child { border-top: 1px solid rgba(194,168,120,0.12); }
 
 .journey-step.active {
   opacity: 1;
@@ -1162,8 +1243,8 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .journey-step-content h4 {
   font-family: var(--serif);
   font-size: clamp(22px, 2.4vw, 32px);
-  font-weight: 300;
-  color: var(--gray-800);
+  font-weight: 400;
+  color: var(--off-white);
   margin-bottom: 0.65rem;
   letter-spacing: var(--tracking-tight);
   line-height: 1.25;
@@ -1172,9 +1253,20 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .journey-step-content p {
   font-size: 0.9rem;
   font-weight: 300;
-  color: var(--gray-600);
+  color: rgba(244,241,236,0.62);
   max-width: 560px;
   line-height: 1.85;
+}
+
+/* Dark-section overrides — buttons/CTA inside the journey section */
+.journey-section .section-cta .btn-secondary {
+  color: var(--accent-light);
+  border-color: rgba(194,168,120,0.4);
+  background: transparent;
+}
+.journey-section .section-cta .btn-secondary:hover {
+  color: var(--deep);
+  border-color: var(--accent);
 }
 
 /* ==========================================
@@ -1190,7 +1282,7 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .advantage-item {
   padding: 1.75rem 1.75rem 1.75rem 2.25rem;
   background: var(--off-white);
-  border-radius: 1px;
+  border-radius: 2px;
   border: 1px solid rgba(47,58,52,0.07);
   border-left: 3px solid var(--accent);
   position: relative;
@@ -1199,18 +1291,27 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   color: var(--gray-800);
   line-height: 1.75;
   transition: all 0.5s var(--ease);
+  overflow: hidden;
 }
 
-.advantage-item:nth-child(even) {
+/* Three-tone left-accent rotation for visual rhythm */
+.advantage-item:nth-child(3n+2) {
   border-left-color: var(--navy);
   background: var(--mint);
 }
+.advantage-item:nth-child(3n) {
+  border-left-color: var(--navy-light);
+  background: linear-gradient(90deg, rgba(194,168,120,0.05) 0%, var(--off-white) 40%);
+}
 
 .section-alt .advantage-item { background: var(--off-white); }
-.section-alt .advantage-item:nth-child(even) { background: var(--white); }
+.section-alt .advantage-item:nth-child(3n+2) { background: var(--white); }
+.section-alt .advantage-item:nth-child(3n) {
+  background: linear-gradient(90deg, rgba(111,135,122,0.06) 0%, var(--off-white) 40%);
+}
 
 .advantage-item:hover {
-  box-shadow: 0 14px 34px rgba(85,107,98,0.1);
+  box-shadow: 0 16px 38px rgba(85,107,98,0.12);
   transform: translateX(6px);
   border-left-width: 5px;
 }
@@ -1236,9 +1337,18 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   position: relative;
 }
 
-.trust-item:nth-child(even) {
+/* Four-colour rotation across the trust grid — sage → gold → bronze → deep-sage */
+.trust-item:nth-child(4n+2) {
   background: var(--mint);
   border-top-color: var(--accent);
+}
+.trust-item:nth-child(4n+3) {
+  background: var(--cream);
+  border-top-color: var(--bronze);
+}
+.trust-item:nth-child(4n) {
+  background: var(--off-white);
+  border-top-color: var(--sage-deep);
 }
 
 .trust-item::before {
@@ -1252,7 +1362,15 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   transition: width 0.6s var(--ease);
 }
 
-.trust-item:nth-child(even)::before { background: var(--navy); }
+.trust-item:nth-child(4n+2)::before { background: var(--navy); }
+.trust-item:nth-child(4n+3)::before { background: var(--sage-deep); }
+.trust-item:nth-child(4n)::before   { background: var(--bronze); }
+
+.trust-item h4 {
+  transition: color 0.4s var(--ease);
+}
+.trust-item:nth-child(4n+3) h4 { color: var(--bronze); }
+.trust-item:nth-child(4n) h4   { color: var(--sage-deep); }
 
 .trust-item:hover::before {
   width: 100%;
@@ -2100,12 +2218,13 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   position: absolute;
   left: 0;
   bottom: -0.45em;
-  height: 1px;
-  width: 72px;
-  background: var(--accent);
+  height: 2px;
+  width: 84px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 55%, rgba(111,135,122,0.55) 100%);
   transform-origin: left center;
   transform: scaleX(0);
   transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.55s;
+  border-radius: 2px;
 }
 .reveal.active .section-title::after,
 .section-title.ws-in::after { transform: scaleX(1); }
@@ -2140,9 +2259,12 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   z-index: 1;
 }
 
-/* Why Armenia "new chapter" feel */
+/* Why Armenia "new chapter" feel — mint with sage + gold depth */
 #why-armenia {
-  background: var(--mint);
+  background:
+    radial-gradient(ellipse 50% 40% at 88% 18%, rgba(194,168,120,0.14), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 10% 82%, rgba(63,82,73,0.14), transparent 70%),
+    var(--mint);
   position: relative;
 }
 
@@ -2151,8 +2273,24 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 55% 40% at 88% 18%, rgba(194,168,120,0.07), transparent 65%);
+    linear-gradient(180deg, transparent 0%, rgba(63,82,73,0.04) 100%);
   pointer-events: none;
+}
+
+/* Trust — deeper sage wash so the band sits between "ivory" and "dark" */
+#trust {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(63,82,73,0.08), transparent 65%),
+    var(--off-white);
+  position: relative;
+}
+#trust::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
+  opacity: 0.35;
 }
 
 /* ==========================================
@@ -2277,6 +2415,21 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   }
 
   .hero::before { font-size: 280px; }
+
+  /* Stack hero pills cleanly — the vertical divider between items became
+     a visual glitch once they wrapped onto multiple rows */
+  .hero-checks {
+    flex-direction: column;
+    gap: 0;
+    border-top-color: rgba(194,168,120,0.28);
+  }
+  .hero-checks li {
+    border-right: none;
+    border-bottom: 1px solid rgba(194,168,120,0.22);
+    padding: 0.7rem 0 0.7rem 1.5rem;
+  }
+  .hero-checks li:last-child { border-bottom: none; }
+  .hero-checks li::before { left: 0.2rem; }
 
   .page-hero {
     padding: 7rem 0 3.5rem;
@@ -2603,5 +2756,254 @@ fieldset.form-field label input[type="number"] {
 }
 @media (max-width: 480px) {
   .process-page .section { padding: 5rem 0; }
+}
+
+/* ==========================================
+   THEME TOGGLE (Header)
+   ========================================== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(47,58,52,0.14);
+  background: transparent;
+  color: var(--gray-800);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.35s var(--ease), border-color 0.35s var(--ease), background 0.35s var(--ease), transform 0.35s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(-18deg);
+}
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
+}
+.theme-toggle .theme-icon-sun { display: none; }
+.theme-toggle .theme-icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .theme-icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .theme-icon-moon { display: none; }
+
+.header.on-dark .theme-toggle {
+  color: var(--off-white);
+  border-color: rgba(194,168,120,0.28);
+}
+.header.on-dark .theme-toggle:hover {
+  color: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* Inside the mobile stacked nav, let it sit naturally */
+@media (max-width: 900px) {
+  .theme-toggle { width: 40px; height: 40px; }
+}
+
+/* ==========================================
+   DARK MODE
+   Flip the neutral ramp. Accents (sage/gold/
+   bronze) stay tonally where they are — they
+   read fine against both ivory and deep sage.
+   ========================================== */
+[data-theme="dark"] {
+  --off-white: #131C18;
+  --mint: #182320;
+  --gray-50: #1B2622;
+  --gray-100: #24302B;
+  --gray-200: #3A453F;
+  --gray-400: #9DAFA4;
+  --gray-600: #C0CEC4;
+  --gray-800: #F0EDE6;
+  --deep: #0B130F;
+  --cream: #1D2824;
+  --white: #1B2622;
+
+  /* Nudge sage ramp lighter so it reads on dark.
+     --navy-dark is semantically "more emphasised than --navy", so in dark
+     mode it must be *brighter*, not darker. Same for --sage-deep which is
+     also used as body/heading text in several spots. */
+  --navy: #9FB3A7;
+  --navy-light: #B6C8BC;
+  --navy-dark: #D1DCD6;
+  --sage-deep: #A8BDB0;
+  --sage-soft: #B8C9BE;
+
+  --shadow-sm: 0 2px 14px rgba(0,0,0,0.25);
+  --shadow-md: 0 14px 40px rgba(0,0,0,0.35);
+  --shadow-lg: 0 30px 80px rgba(0,0,0,0.5);
+  --shadow-gold: 0 20px 50px rgba(194,168,120,0.25);
+}
+
+/* Base surfaces that use hardcoded rgba(244,241,236,…) need a dark-mode twin */
+[data-theme="dark"] body { color: var(--gray-800); }
+
+/* Luxury cursor — the light-mode dot uses mix-blend-mode:multiply which
+   collapses the dot to near-black on a dark page, and the ring's border
+   is a hardcoded dark rgba. Switch the blend + brighten the ring for dark. */
+[data-theme="dark"] #lux-cursor {
+  background: var(--accent-light);
+  mix-blend-mode: normal;
+}
+[data-theme="dark"] #lux-cursor-ring {
+  border-color: rgba(212,189,148,0.55);
+}
+[data-theme="dark"] body.lux-hover #lux-cursor-ring {
+  border-color: rgba(212,189,148,0.8);
+}
+
+[data-theme="dark"] .header.scrolled {
+  background: rgba(19,28,24,0.92);
+  border-bottom-color: rgba(194,168,120,0.12);
+}
+
+/* In dark mode the whole page is dark, so the *default* header (not .on-dark)
+   must read light — gray-800 is already the light ivory in dark mode. */
+[data-theme="dark"] .header .logo { color: var(--gray-800); }
+[data-theme="dark"] .header .nav-link { color: var(--gray-800); }
+[data-theme="dark"] .hamburger span { background: var(--gray-800); }
+
+/* .on-dark normally flips text to --off-white, but --off-white is dark in
+   dark mode. Pin these to the light ivory so the nav stays legible over
+   the deep-sage CTA / journey / footer bands. */
+[data-theme="dark"] .header.on-dark .logo,
+[data-theme="dark"] .header.on-dark .nav-link { color: #F0EDE6; }
+[data-theme="dark"] .header.on-dark .hamburger span { background: #F0EDE6; }
+[data-theme="dark"] .header.on-dark .nav { background: rgba(7,16,12,0.97); }
+
+/* Theme toggle: keep the icon ivory over dark bands too — in dark mode the
+   scroll-position-based .on-dark override would otherwise collapse it to
+   var(--off-white), which is near-black in dark mode. */
+[data-theme="dark"] .header.on-dark .theme-toggle {
+  color: #F0EDE6;
+  border-color: rgba(194,168,120,0.35);
+}
+[data-theme="dark"] .header.on-dark .theme-toggle:hover {
+  color: var(--accent-light);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .nav {
+  background: rgba(19,28,24,0.97);
+  border-bottom-color: rgba(194,168,120,0.1);
+}
+
+[data-theme="dark"] .auth-modal { background: rgba(0,0,0,0.6); }
+[data-theme="dark"] .auth-modal-inner { background: var(--gray-50); box-shadow: 0 40px 120px rgba(0,0,0,0.6); }
+
+/* Decorative floating "V" behind hero — darker tone on dark */
+[data-theme="dark"] .hero::before { color: rgba(194,168,120,0.05); }
+[data-theme="dark"] .hero::after  { background: linear-gradient(90deg, transparent, rgba(194,168,120,0.22) 50%, transparent); }
+
+[data-theme="dark"] .hero {
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 18%, rgba(111,135,122,0.18), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 92% 82%, rgba(194,168,120,0.14), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 78% 12%, rgba(131,158,145,0.10), transparent 70%),
+    var(--off-white);
+}
+
+[data-theme="dark"] .section-alt {
+  background:
+    radial-gradient(ellipse 50% 40% at 85% 12%, rgba(194,168,120,0.12), transparent 65%),
+    radial-gradient(ellipse 55% 50% at 8% 88%, rgba(111,135,122,0.14), transparent 70%),
+    var(--gray-50);
+}
+
+[data-theme="dark"] #why-armenia {
+  background:
+    radial-gradient(ellipse 50% 40% at 88% 18%, rgba(194,168,120,0.14), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 10% 82%, rgba(111,135,122,0.18), transparent 70%),
+    var(--mint);
+}
+
+[data-theme="dark"] #trust {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(111,135,122,0.14), transparent 65%),
+    var(--off-white);
+}
+
+/* Cards — lift them off the dark background a touch */
+[data-theme="dark"] .feature-card,
+[data-theme="dark"] .program-card,
+[data-theme="dark"] .trust-item,
+[data-theme="dark"] .advantage-item,
+[data-theme="dark"] .insight-card,
+[data-theme="dark"] .legislative-act {
+  border-color: rgba(194,168,120,0.14);
+}
+[data-theme="dark"] .feature-card:hover,
+[data-theme="dark"] .program-card:hover,
+[data-theme="dark"] .trust-item:hover,
+[data-theme="dark"] .insight-card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(194,168,120,0.25);
+}
+
+/* Featured program card gradient tuned for dark */
+[data-theme="dark"] .program-card.featured {
+  background:
+    radial-gradient(ellipse 70% 40% at 80% 0%, rgba(194,168,120,0.18), transparent 70%),
+    linear-gradient(180deg, var(--mint) 0%, var(--gray-50) 100%);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+/* Accordion border */
+[data-theme="dark"] .accordion-item,
+[data-theme="dark"] .accordion-item:first-child {
+  border-color: rgba(194,168,120,0.14);
+}
+[data-theme="dark"] .accordion-header::after {
+  border-color: rgba(194,168,120,0.3);
+  color: var(--gray-800);
+}
+
+/* Comparison table — hardcoded dark heading, reinforce body contrast */
+[data-theme="dark"] .comparison-table thead th {
+  background: var(--sage-deep);
+  color: var(--gray-800);
+}
+[data-theme="dark"] .comparison-table tbody tr:hover {
+  background: var(--gray-100);
+}
+
+/* Form inputs */
+[data-theme="dark"] .auth-modal-inner input,
+[data-theme="dark"] .form-field input[type="text"],
+[data-theme="dark"] .form-field input[type="email"],
+[data-theme="dark"] .form-field input[type="tel"],
+[data-theme="dark"] .form-field input[type="number"],
+[data-theme="dark"] .form-field input[type="password"],
+[data-theme="dark"] .form-field select,
+[data-theme="dark"] .form-field textarea {
+  background: var(--gray-100);
+  color: var(--gray-800);
+  border-color: rgba(194,168,120,0.18);
+}
+
+/* Footer + CTA use --deep already; in dark mode push even deeper */
+[data-theme="dark"] .footer,
+[data-theme="dark"] .cta-section {
+  background: #05090A !important;
+}
+[data-theme="dark"] .journey-section {
+  background:
+    radial-gradient(ellipse 60% 45% at 15% 10%, rgba(194,168,120,0.14), transparent 65%),
+    radial-gradient(ellipse 55% 45% at 88% 90%, rgba(111,135,122,0.18), transparent 70%),
+    #07100C;
+}
+
+/* Section title eyebrow + sweep stay gold/sage but brighten a notch on dark */
+[data-theme="dark"] .section-title::before {
+  background: linear-gradient(90deg, var(--navy-light) 0%, var(--accent) 100%);
+}
+[data-theme="dark"] .section-title::after {
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 55%, var(--navy-light) 100%);
 }
 

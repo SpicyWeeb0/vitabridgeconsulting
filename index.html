@@ -26,6 +26,16 @@
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Theme init (anti-flash) -->
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem('vb-theme');
+        if (!t) { t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
 
@@ -85,8 +95,8 @@
     <!-- HERO -->
     <section class="hero">
       <div class="container hero-content">
-        <h1>VitaBridge Consulting</h1>
         <p class="hero-tagline">Bridging the Path to Parenthood with Structure and Confidence</p>
+        <h1>VitaBridge Consulting</h1>
         <h2 class="hero-subtitle">Legally Structured Surrogacy Programs in Armenia for International Intended Parents</h2>
         <p class="hero-desc">End-to-end coordination combining legal clarity, medical expertise, and full process management — from initial consultation to returning home with your child.</p>
         <ul class="hero-checks">

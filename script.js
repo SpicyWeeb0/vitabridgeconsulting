@@ -1,4 +1,79 @@
+/* ============================
+   THEME (light / dark) — runs immediately to minimise flash.
+   An inline snippet in each page's <head> handles the *initial*
+   paint; this block owns the toggle button and persistence.
+============================ */
+(function themeBoot() {
+  try {
+    if (!document.documentElement.getAttribute("data-theme")) {
+      var stored = localStorage.getItem("vb-theme");
+      var initial = stored || (window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", initial);
+    }
+  } catch (e) {}
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  /* ============================
+     THEME TOGGLE BUTTON
+     Injected into the nav so every page gets it automatically.
+  ============================ */
+  (function setupThemeToggle() {
+    const navEl = document.getElementById("mainNav");
+    if (!navEl || document.getElementById("themeToggle")) return;
+
+    const btn = document.createElement("button");
+    btn.id = "themeToggle";
+    btn.className = "theme-toggle";
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Toggle colour theme");
+    btn.setAttribute("title", "Toggle colour theme");
+    btn.innerHTML = `
+      <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+      </svg>
+      <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+    `;
+
+    // Place before the Login button so it keeps good tab order; fall back to end.
+    const loginBtnEl = document.getElementById("loginBtn");
+    if (loginBtnEl && loginBtnEl.parentElement === navEl) {
+      navEl.insertBefore(btn, loginBtnEl);
+    } else {
+      navEl.appendChild(btn);
+    }
+
+    const apply = (theme) => {
+      document.documentElement.setAttribute("data-theme", theme);
+      try { localStorage.setItem("vb-theme", theme); } catch (e) {}
+      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+    };
+    apply(document.documentElement.getAttribute("data-theme") || "light");
+
+    btn.addEventListener("click", () => {
+      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      apply(next);
+    });
+
+    // Follow system changes only when the user hasn't explicitly chosen.
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      const listener = (e) => {
+        if (!localStorage.getItem("vb-theme")) {
+          apply(e.matches ? "dark" : "light");
+        }
+      };
+      if (mq.addEventListener) mq.addEventListener("change", listener);
+      else if (mq.addListener) mq.addListener(listener);
+    }
+  })();
+
+
 
   /* ============================
      REDUCED MOTION CHECK
@@ -175,19 +250,15 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.defaults({ ease: "expo.out" });
 
     // Helper: fire the CSS-driven cinematic reveals (.active on the section,
-    // .ws-in on any word-split titles inside it) so paragraph blur + gold
-    // underline sweeps run in sync with the GSAP tween.
+    // .ws-in on any word-split titles inside it). One-way: once a section has
+    // been revealed we never tear it back down — reversing the split-word
+    // transforms on scroll-up caused words to overlap the adjacent line.
     const activateCinematic = (el) => {
       el.classList.add("active");
       el.querySelectorAll(".word-split").forEach((w) => w.classList.add("ws-in"));
     };
-    const deactivateCinematic = (el) => {
-      el.classList.remove("active");
-      el.querySelectorAll(".word-split").forEach((w) => w.classList.remove("ws-in"));
-    };
 
-    /* ----- SECTION REVEALS (layered entrance) ----- */
-    /* Exclude elements that have their own dedicated GSAP animations */
+    /* ----- SECTION REVEALS (layered entrance, one-way) ----- */
     const dedicatedAnimated = ".program-card, .advantage-item, .trust-item, .journey-step, .accordion-item";
     document.querySelectorAll(".reveal").forEach((el) => {
       if (el.matches(dedicatedAnimated)) return;
@@ -201,11 +272,8 @@ document.addEventListener("DOMContentLoaded", () => {
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
-            end: "top 50%",
-            toggleActions: "play none none reverse",
-            onEnter: () => activateCinematic(el),
-            onEnterBack: () => activateCinematic(el),
-            onLeaveBack: () => deactivateCinematic(el)
+            toggleActions: "play none none none",
+            onEnter: () => activateCinematic(el)
           }
         }
       );
@@ -272,7 +340,7 @@ document.addEventListener("DOMContentLoaded", () => {
           scrollTrigger: {
             trigger: "#programs",
             start: "top 70%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
@@ -294,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             scrollTrigger: {
               trigger: whyArmenia,
               start: "top 70%",
-              toggleActions: "play none none reverse"
+              toggleActions: "play none none none"
             }
           }
         );
@@ -314,8 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
             start: "top 85%",
             end: "top 60%",
             scrub: 0.5,
-            onEnter: () => step.classList.add("active"),
-            onLeaveBack: () => step.classList.remove("active")
+            onEnter: () => step.classList.add("active")
           }
         });
       });
@@ -335,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
           scrollTrigger: {
             trigger: "#trust",
             start: "top 75%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
@@ -356,7 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
           scrollTrigger: {
             trigger: faqSection,
             start: "top 75%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
@@ -375,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
           scrollTrigger: {
             trigger: ctaSection,
             start: "top 80%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
@@ -803,7 +870,7 @@ if (forgotPassword) {
   /* ---- Scroll-aware nav states ---- */
   const header = document.querySelector('.header');
   if (header) {
-    const darkSelectors = '.cta-section, .footer';
+    const darkSelectors = '.cta-section, .footer, .journey-section';
     const updateNav = () => {
       const scrolled = window.scrollY > 40;
       let onDark = false;
