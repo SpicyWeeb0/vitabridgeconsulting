@@ -512,7 +512,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   color: var(--gray-800);
   line-height: 1.04;
   letter-spacing: -0.028em;
-  margin-bottom: 1.75rem;
+  margin-bottom: 3.5rem;
 }
 
 .hero-tagline {
@@ -545,7 +545,8 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   color: var(--navy);
   line-height: 1.45;
   margin-bottom: 1.75rem;
-  max-width: 640px;
+  max-width: 560px;
+  text-wrap: balance;
   position: relative;
 }
 
