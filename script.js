@@ -751,9 +751,7 @@ if (forgotPassword) {
   const loginTrigger = document.getElementById("accountLoginTrigger");
   const accountLogoutBtn = document.getElementById("accountLogoutBtn");
 
-  const emailForm = document.getElementById("changeEmailForm");
   const passwordForm = document.getElementById("changePasswordForm");
-  const emailMessage = document.getElementById("emailMessage");
   const passwordMessage = document.getElementById("passwordMessage");
 
   function setMessage(el, text, type) {
@@ -793,26 +791,6 @@ if (forgotPassword) {
     if (!user) throw new Error("Not signed in.");
     const cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
     await user.reauthenticateWithCredential(cred);
-  }
-
-  if (emailForm) {
-    emailForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      setMessage(emailMessage, "Updating…");
-      const newEmail = document.getElementById("newEmail").value.trim();
-      const currentPassword = document.getElementById("emailCurrentPassword").value;
-      try {
-        await reauthenticate(currentPassword);
-        await auth.currentUser.updateEmail(newEmail);
-        try { await auth.currentUser.sendEmailVerification(); } catch (_) {}
-        setMessage(emailMessage, "Email updated. A verification link has been sent to your new address.", "success");
-        accountEmail.textContent = auth.currentUser.email;
-        emailForm.reset();
-      } catch (err) {
-        console.error(err);
-        setMessage(emailMessage, err.message || "Could not update email.", "error");
-      }
-    });
   }
 
   if (passwordForm) {

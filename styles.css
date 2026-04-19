@@ -2649,6 +2649,10 @@ fieldset.form-field label input[type="number"] {
   box-shadow: var(--shadow-sm);
 }
 
+.account-card-wide {
+  grid-column: 1 / -1;
+}
+
 .account-card h3 {
   font-size: 1.15rem;
   color: var(--navy);

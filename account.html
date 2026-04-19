@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Account — VitaBridge Consulting</title>
-  <meta name="description" content="Manage your VitaBridge Consulting account — update email, change password, and sign out." />
+  <meta name="description" content="Manage your VitaBridge Consulting account — change password and sign out." />
 
   <!-- Google Tag Manager -->
   <script>
@@ -91,7 +91,7 @@
     <section class="page-hero">
       <div class="container">
         <h1>Your Account</h1>
-        <p>Manage your profile details, email address, and password.</p>
+        <p>Manage your profile details and password.</p>
       </div>
     </section>
 
@@ -115,22 +115,12 @@
           </div>
 
           <div class="account-card">
-            <h3>Change Email</h3>
-            <form id="changeEmailForm" class="account-form">
-              <label class="form-field">
-                <span>New email address</span>
-                <input type="email" id="newEmail" required />
-              </label>
-              <label class="form-field">
-                <span>Current password (for verification)</span>
-                <input type="password" id="emailCurrentPassword" required />
-              </label>
-              <button type="submit" class="btn btn-primary">Update Email</button>
-              <p class="account-message" id="emailMessage"></p>
-            </form>
+            <h3>Session</h3>
+            <p class="account-label">End your current session on this device.</p>
+            <button type="button" class="btn btn-outline" id="accountLogoutBtn">Log out</button>
           </div>
 
-          <div class="account-card">
+          <div class="account-card account-card-wide">
             <h3>Change Password</h3>
             <form id="changePasswordForm" class="account-form">
               <label class="form-field">
@@ -148,12 +138,6 @@
               <button type="submit" class="btn btn-primary">Update Password</button>
               <p class="account-message" id="passwordMessage"></p>
             </form>
-          </div>
-
-          <div class="account-card">
-            <h3>Session</h3>
-            <p class="account-label">End your current session on this device.</p>
-            <button type="button" class="btn btn-outline" id="accountLogoutBtn">Log out</button>
           </div>
 
         </div>
