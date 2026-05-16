@@ -637,6 +637,41 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   z-index: 1;
 }
 
+/* Hero banner image — full-width, used above the hero, below the hero, or between content sections */
+.hero-image {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 50vh, 560px);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Inline image — floats within a content section so text wraps editorially around it */
+.hero-image-inline {
+  float: right;
+  width: 46%;
+  max-width: 540px;
+  max-height: 460px;
+  height: auto;
+  object-fit: cover;
+  margin: 0.4rem 0 1.5rem 2.5rem;
+  border-radius: 4px;
+  shape-outside: margin-box;
+}
+
+@media (max-width: 720px) {
+  .hero-image {
+    height: clamp(220px, 38vh, 360px);
+  }
+  .hero-image-inline {
+    float: none;
+    width: 100%;
+    max-width: none;
+    max-height: 320px;
+    margin: 0 0 2rem;
+  }
+}
+
 .page-hero h1 {
   font-family: var(--serif);
   font-size: clamp(44px, 5vw, 72px);
@@ -1900,6 +1935,14 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   margin-top: 0.5rem;
   font-weight: 600;
   color: var(--navy);
+}
+
+.leadership-photo-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
 }
 
 .leadership-text p {
