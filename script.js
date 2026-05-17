@@ -408,22 +408,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    /* ----- JOURNEY: smooth step-by-step reveal on scroll ----- */
+    /* ----- JOURNEY: one-shot per-step reveal, no scrub (fixes scroll-up flicker) ----- */
     const journeySteps = document.querySelectorAll(".journey-step");
 
     if (journeySteps.length > 0) {
-      journeySteps.forEach((step, i) => {
-        gsap.to(step, {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: step,
-            start: "top 85%",
-            end: "top 60%",
-            scrub: 0.5,
-            onEnter: () => step.classList.add("active")
+      journeySteps.forEach((step) => {
+        gsap.fromTo(step,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: step,
+              start: "top 88%",
+              toggleActions: "play none none none",
+              onEnter: () => step.classList.add("active")
+            }
           }
-        });
+        );
       });
     }
 
@@ -488,9 +492,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // After all splits + ScrollTriggers are set up, refresh once webfonts
-    // finish so trigger positions account for any late layout shifts.
+    // finish so trigger positions account for any late layout shifts, then
+    // force-activate any .reveal element already in (or near) the viewport so
+    // sections that start above the trigger threshold don't render at opacity 0.
+    const activateInViewReveals = () => {
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      document.querySelectorAll(".reveal").forEach((el) => {
+        if (el.classList.contains("active")) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh * 0.95 && r.bottom > 0) {
+          activateCinematic(el);
+          gsap.set(el, { clearProps: "opacity,transform" });
+        }
+      });
+    };
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => ScrollTrigger.refresh()).catch(() => {});
+      document.fonts.ready.then(() => {
+        ScrollTrigger.refresh();
+        activateInViewReveals();
+      }).catch(activateInViewReveals);
+    } else {
+      requestAnimationFrame(activateInViewReveals);
     }
 
   } else if (!prefersReducedMotion) {
