@@ -964,6 +964,10 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   margin-top: 2.5rem;
 }
 
+.features-grid + .section-text {
+  margin-top: 1.75rem;
+}
+
 /* ==========================================
    PROGRAMS GRID (Landing)
    ========================================== */
