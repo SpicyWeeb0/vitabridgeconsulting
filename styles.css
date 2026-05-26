@@ -168,7 +168,23 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   text-transform: uppercase;
   position: relative;
   transition: color 0.5s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
 }
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-text { display: inline-block; }
 
 .header.on-dark .logo { color: var(--off-white); }
 
@@ -509,10 +525,15 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.22;
+  opacity: 0.32;
   z-index: 0;
   pointer-events: none;
   mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .hero-bg-image {
+  opacity: 0.42;
+  mix-blend-mode: screen;
 }
 
 .hero-content {
@@ -1263,12 +1284,12 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   display: inline-flex;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 56px;
-  min-width: 56px;
+  width: 64px;
+  min-width: 64px;
   height: auto;
-  font-size: 1.9rem;
+  font-size: 2.3rem;
   line-height: 1;
-  padding-top: 0.25rem;
+  padding-top: 0.2rem;
   opacity: 1;
   filter: saturate(0.92);
 }
@@ -2124,6 +2145,15 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   grid-template-columns: 1fr;
   gap: 3rem;
   z-index: 1;
+}
+
+.footer-logo {
+  width: 92px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: block;
+  box-shadow: var(--shadow-sm);
 }
 
 .footer-brand h3 {
@@ -3048,6 +3078,15 @@ fieldset.form-field label input[type="number"] {
     radial-gradient(ellipse 60% 45% at 15% 10%, rgba(194,168,120,0.14), transparent 65%),
     radial-gradient(ellipse 55% 45% at 88% 90%, rgba(111,135,122,0.18), transparent 70%),
     #07100C;
+}
+
+/* Dark bands (journey, CTA, footer) stay dark in both modes — pin their
+   headings to light ivory so they don't flip with --off-white in dark mode. */
+[data-theme="dark"] .journey-section .section-title,
+[data-theme="dark"] .journey-step-content h4,
+[data-theme="dark"] .cta-content h2,
+[data-theme="dark"] .footer-brand h3 {
+  color: #F0EDE6;
 }
 
 /* Section title eyebrow + sweep stay gold/sage but brighten a notch on dark */
