@@ -1,3 +1,8 @@
+/*!
+ * Copyright © 2026 VitaBridge Consulting. All Rights Reserved.
+ * Proprietary and confidential. No part of this file may be copied, reused,
+ * or redistributed without prior written permission. See LICENSE.
+ */
 /* ============================
    THEME (light / dark) — runs immediately to minimise flash.
    An inline snippet in each page's <head> handles the *initial*
