@@ -1609,6 +1609,16 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   object-position: center;
 }
 
+@media (max-width: 720px) {
+  /* On phones the photo's wide aspect ratio makes the band too short for the
+     heading + intro, so the text was clipped by the hero's overflow:hidden.
+     Let the hero grow to fit its content; the photo still covers behind it. */
+  .faq-page .page-hero {
+    aspect-ratio: auto;
+    min-height: 78vh;
+  }
+}
+
 /* ==========================================
    CTA SECTION
    ========================================== */
