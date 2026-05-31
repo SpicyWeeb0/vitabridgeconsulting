@@ -700,6 +700,16 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   object-position: center;
 }
 
+/* Why Armenia: show the full scenic banner photos (Republic Square, Garni
+   Temple) rather than cropping them to a fixed band — "zoom out so everything
+   can be seen". height:auto lets each image render full-width at its natural
+   aspect ratio, so nothing is cut off. */
+.why-armenia-page .hero-image {
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+
 /* Inline image — floats within a content section so text wraps editorially around it */
 .hero-image-inline {
   float: right;
