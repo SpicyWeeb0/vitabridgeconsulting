@@ -184,11 +184,28 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".section-title, .page-hero h1").forEach(splitIntoWords);
   }
 
+  // Reconcile word-split titles that belong to a section which was *already*
+  // revealed before the splitter ran. On pages without GSAP the fallback
+  // IntersectionObserver can mark an in-view .reveal active before fonts.ready
+  // fires the splitter — so the title's freshly-created word spans never get
+  // .ws-in and stay invisible, leaving a blank gap with a floating underline.
+  // Re-apply .ws-in now that the words exist (page-hero titles included).
+  function syncRevealedWordSplits() {
+    document.querySelectorAll(".word-split").forEach((w) => {
+      if (w.closest(".reveal.active, .page-hero")) w.classList.add("ws-in");
+    });
+  }
+
+  function runSplitsAndSync() {
+    runCinematicSplits();
+    syncRevealedWordSplits();
+  }
+
   // Wait for webfonts to settle so line measurement is accurate
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(runCinematicSplits).catch(runCinematicSplits);
+    document.fonts.ready.then(runSplitsAndSync).catch(runSplitsAndSync);
   } else {
-    requestAnimationFrame(runCinematicSplits);
+    requestAnimationFrame(runSplitsAndSync);
   }
 
   // Re-run the splitter when the viewport changes width enough to re-wrap.
@@ -318,52 +335,17 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
 
-    /* ----- HERO PARALLAX (layered cinematic drift) ----- */
-    const heroSection = document.querySelector(".hero");
-    if (heroSection) {
-      // Base drift of the whole hero band
-      gsap.to(heroSection, {
-        y: -90,
-        opacity: 0.55,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-
-      // H1 drifts faster — gives a layered depth feel
-      const heroH1 = heroSection.querySelector(".hero-content h1");
-      if (heroH1) {
-        gsap.to(heroH1, {
-          y: -140,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      }
-
-      // Mid-layer (desc + checks) drifts at an intermediate speed
-      const heroMid = heroSection.querySelectorAll(".hero-desc, .hero-checks");
-      if (heroMid.length > 0) {
-        gsap.to(heroMid, {
-          y: -60,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top top",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      }
-    }
+    /* ----- HERO PARALLAX -----
+       Deliberately NOT done in JavaScript any more. Both the old GSAP scrub
+       and a hand-rolled scroll handler update the hero transform on the main
+       thread, but Safari scrolls on the compositor thread — on an instant
+       jump back to the top it paints the new scroll position a frame before
+       the main-thread scroll event fires, leaving the hero shifted/dimmed for
+       that frame ("the delay on the first screen"). The parallax is now a
+       pure-CSS scroll-driven animation (see `animation-timeline: scroll()` in
+       styles.css), which the browser evaluates on the compositor in lockstep
+       with the scroll, so jump-to-top is always perfectly in sync. Browsers
+       without scroll-timeline support just get a static hero — no flash. */
 
     /* ----- PROGRAMS: staggered card reveal ----- */
     const programCards = document.querySelectorAll(".program-card");
@@ -864,8 +846,14 @@ if (forgotPassword) {
     const onMove = (e) => {
       mx = e.clientX;
       my = e.clientY;
-      cursor.style.left = mx + 'px';
-      cursor.style.top = my + 'px';
+      // Move via transform (not left/top): a transform-only change is
+      // composited and does NOT repaint the region behind the cursor.
+      // left/top forced a per-frame repaint that Safari failed to clear over
+      // the hero's mix-blend-mode image, leaving an afterimage trail and a
+      // leftover paint rectangle (the "square"). translate3d also keeps the
+      // dot on its own GPU layer. The trailing translate(-50%,-50%) re-centres
+      // it regardless of the current (hover-animated) size.
+      cursor.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%)';
       if (!document.body.classList.contains('lux-ready')) {
         document.body.classList.add('lux-ready');
       }
@@ -885,8 +873,7 @@ if (forgotPassword) {
     const animateRing = () => {
       rx += (mx - rx) * 0.14;
       ry += (my - ry) * 0.14;
-      ring.style.left = rx + 'px';
-      ring.style.top = ry + 'px';
+      ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) translate(-50%,-50%)';
       rafId = requestAnimationFrame(animateRing);
     };
     animateRing();

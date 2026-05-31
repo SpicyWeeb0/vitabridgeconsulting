@@ -81,9 +81,10 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  backface-visibility: hidden;
   transition: width 0.4s var(--ease), height 0.4s var(--ease), background 0.35s ease, opacity 0.3s ease;
-  mix-blend-mode: multiply;
   opacity: 0;
 }
 #lux-cursor-ring {
@@ -94,7 +95,9 @@ body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
+  will-change: transform;
+  backface-visibility: hidden;
   transition: width 0.45s var(--ease), height 0.45s var(--ease), border-color 0.35s ease, opacity 0.3s ease;
   opacity: 0;
 }
@@ -102,7 +105,7 @@ body.lux-ready #lux-cursor,
 body.lux-ready #lux-cursor-ring { opacity: 1; }
 body.lux-hover #lux-cursor { width: 14px; height: 14px; }
 body.lux-hover #lux-cursor-ring { width: 64px; height: 64px; border-color: rgba(194,168,120,0.45); }
-body.on-dark-section #lux-cursor { background: var(--accent); mix-blend-mode: normal; }
+body.on-dark-section #lux-cursor { background: var(--accent); }
 body.on-dark-section #lux-cursor-ring { border-color: rgba(194,168,120,0.32); }
 body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120,0.6); }
 
@@ -517,7 +520,12 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
 
 /* Photographic background layer behind the hero copy (mother & child).
    Sits below the radial colour washes but above the off-white base, with low
-   opacity so the headline contrast and ghost "V" remain intact. */
+   opacity so the headline contrast and ghost "V" remain intact.
+   NB: deliberately NO mix-blend-mode here. Safari breaks the repaint of the
+   position:fixed custom cursor whenever it moves over a blended layer, leaving
+   an afterimage trail + a leftover paint square. A plain faded overlay avoids
+   that bug entirely; opacity is nudged down slightly to compensate for the
+   loss of multiply (which used to drop out the photo's lighter areas). */
 .hero-bg-image {
   position: absolute;
   inset: 0;
@@ -525,15 +533,13 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.32;
+  opacity: 0.26;
   z-index: 0;
   pointer-events: none;
-  mix-blend-mode: multiply;
 }
 
 [data-theme="dark"] .hero-bg-image {
-  opacity: 0.42;
-  mix-blend-mode: screen;
+  opacity: 0.36;
 }
 
 .hero-content {
@@ -549,7 +555,7 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   color: var(--gray-800);
   line-height: 1.04;
   letter-spacing: -0.028em;
-  margin-bottom: 3.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-tagline {
@@ -2231,6 +2237,38 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
 .hero-content.loaded > *:nth-child(5) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.96s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.96s; }
 .hero-content.loaded > *:nth-child(6) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.10s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.10s; }
 .hero-content.loaded > *:nth-child(7) { transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.22s, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.22s; }
+
+/* ==========================================
+   HERO PARALLAX (compositor-driven)
+   ==========================================
+   Scroll-linked parallax via CSS scroll-timeline so it runs on the
+   compositor, NOT the main thread. This is what fixes the "first screen
+   delay": a JS scroll handler (or GSAP scrub) updates a frame after Safari
+   has already painted an instant jump-to-top, flashing the hero in its
+   scrolled-away state; a scroll-driven animation is evaluated in lockstep
+   with the scroll position, so the top of the page is always rendered with
+   the hero at its rest transform. Gated by @supports + reduced-motion, so
+   unsupported browsers simply get a static (still correct) hero. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .hero {
+      animation: heroBandDrift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    /* H1 drifts faster than the band for a layered depth feel. The rest of
+       the hero copy parallaxes along with the band, so it needs no separate
+       animation — which also leaves its load-entrance slide untouched. */
+    .hero-content h1 {
+      animation: heroH1Drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@keyframes heroBandDrift { to { transform: translate3d(0, -90px, 0); } }
+@keyframes heroH1Drift   { to { transform: translate3d(0, -140px, 0); } }
 
 /* ==========================================
    CINEMATIC TEXT REVEALS
