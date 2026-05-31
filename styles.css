@@ -700,15 +700,12 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   object-position: center;
 }
 
-/* Why Armenia: show each scenic photo (Republic Square, Garni Temple) whole,
-   at a comfortable medium size — not cropped, not blown up to fill a tall
-   full-bleed band. Cap the width and let the height follow the natural aspect
-   ratio, centred. Displayed width stays well below the file's native pixels,
-   so nothing is upscaled. */
+/* Why Armenia: each scenic photo (Republic Square, Garni Temple) spans the
+   full site width and its height follows the natural aspect ratio, so the
+   whole image is shown — no cropping, no centred box, no upscaling. */
 .why-armenia-page .hero-image {
-  width: min(100%, 860px);
+  width: 100%;
   height: auto;
-  margin-inline: auto;
   object-fit: contain;
 }
 
