@@ -1597,6 +1597,14 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   padding: 1.35rem 0;
 }
 
+/* FAQ hero photo: frame from the top so the child's face/eyes drop below the
+   heading (which then sits over the empty headroom) instead of lining up with
+   it, and zoom in slightly so the child reads a touch larger. */
+.faq-page .page-hero .hero-bg-image {
+  object-position: center top;
+  transform: scale(1.1);
+}
+
 /* ==========================================
    CTA SECTION
    ========================================== */
