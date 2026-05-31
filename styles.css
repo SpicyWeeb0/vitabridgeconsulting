@@ -1597,15 +1597,16 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   padding: 1.35rem 0;
 }
 
-/* FAQ hero photo: show the WHOLE child (no cropping) by using contain, and
-   align it to the right so the full figure sits on the right side while the
-   heading stays clear on the left. */
-.faq-page .page-hero .hero-bg-image {
-  object-fit: contain;
-  object-position: right center;
-}
+/* FAQ hero photo: fill the whole hero edge-to-edge AND show the entire child.
+   Matching the hero's aspect ratio to the photo lets `cover` fill completely
+   with no cropping of the figure. (Upscales the photo on wide screens — fine
+   per the brief.) */
 .faq-page .page-hero {
-  min-height: 60vh;
+  aspect-ratio: 1600 / 1066;
+}
+.faq-page .page-hero .hero-bg-image {
+  object-fit: cover;
+  object-position: center;
 }
 
 /* ==========================================
