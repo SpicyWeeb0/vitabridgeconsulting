@@ -1,0 +1,4 @@
+Contact: mailto:security@vitabridgeconsulting.net
+Expires: 2027-05-31T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.vitabridgeconsulting.net/.well-known/security.txt
