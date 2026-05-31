@@ -675,6 +675,17 @@ body.on-dark-section.lux-hover #lux-cursor-ring { border-color: rgba(194,168,120
   background: linear-gradient(90deg, transparent, rgba(47,58,52,0.08) 50%, transparent);
 }
 
+/* About ("Who We Are"): tighten the gap between the page hero and the first
+   section ("Process Leadership and Oversight"). Default is page-hero bottom
+   padding (5.5rem) + section top padding (7.5rem) = ~13rem, which read as too
+   much empty space. Halve it. */
+.about-page .page-hero {
+  padding-bottom: 2.5rem;
+}
+.about-page .page-hero + .section {
+  padding-top: 3.5rem;
+}
+
 .page-hero .container {
   position: relative;
   z-index: 1;
