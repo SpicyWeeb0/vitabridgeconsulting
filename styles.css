@@ -1597,12 +1597,15 @@ main p a:hover:not(.btn):not(.insight-link):not(.nav-link) {
   padding: 1.35rem 0;
 }
 
-/* FAQ hero photo: frame from the top so the child's face/eyes drop below the
-   heading (which then sits over the empty headroom) instead of lining up with
-   it, and zoom in slightly so the child reads a touch larger. */
+/* FAQ hero photo: show the WHOLE child (no cropping) by using contain, and
+   align it to the right so the full figure sits on the right side while the
+   heading stays clear on the left. */
 .faq-page .page-hero .hero-bg-image {
-  object-position: center top;
-  transform: scale(1.1);
+  object-fit: contain;
+  object-position: right center;
+}
+.faq-page .page-hero {
+  min-height: 60vh;
 }
 
 /* ==========================================
