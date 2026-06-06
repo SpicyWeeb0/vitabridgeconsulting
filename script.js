@@ -925,3 +925,128 @@ if (forgotPassword) {
     window.addEventListener('resize', updateNav);
   }
 })();
+
+/* ============================
+   COOKIE CONSENT + META (FACEBOOK) PIXEL — consent-gated.
+   The Meta Pixel only loads after the visitor explicitly accepts.
+   Choice is stored in localStorage ("vb-cookie-consent": granted|denied).
+   No <noscript> tracking beacon is used, since it could not honour consent.
+============================ */
+(function cookieConsent() {
+  var STORAGE_KEY = "vb-cookie-consent";
+  var META_PIXEL_ID = "1021667343722948";
+  var pixelLoaded = false;
+
+  function loadMetaPixel() {
+    if (pixelLoaded || window.fbq) return;
+    pixelLoaded = true;
+    /* Standard Meta Pixel base code (noscript beacon intentionally omitted). */
+    !(function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = "2.0";
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", META_PIXEL_ID);
+    window.fbq("track", "PageView");
+  }
+
+  var GTM_ID = "GTM-TWMCG4L";
+  var gtmLoaded = false;
+
+  function loadGTM() {
+    if (gtmLoaded) return;
+    gtmLoaded = true;
+    /* Google Tag Manager (also covers Google Analytics inside the container). */
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", GTM_ID);
+  }
+
+  function loadConsentedTags() {
+    loadGTM();
+    loadMetaPixel();
+  }
+
+  function getConsent() {
+    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+  }
+  function setConsent(value) {
+    try { localStorage.setItem(STORAGE_KEY, value); } catch (e) {}
+  }
+
+  function removeBanner() {
+    var el = document.getElementById("vb-cookie-banner");
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  function buildBanner() {
+    if (document.getElementById("vb-cookie-banner")) return;
+    var banner = document.createElement("div");
+    banner.id = "vb-cookie-banner";
+    banner.className = "vb-cc";
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("aria-live", "polite");
+    banner.setAttribute("aria-label", "Cookie consent");
+    banner.innerHTML =
+      '<p class="vb-cc-text">We use cookies, analytics, and the Meta (Facebook) Pixel to understand how our site is used and to measure our advertising. These load only with your consent. See our <a href="privacy-policy.html">Privacy Policy</a>.</p>' +
+      '<div class="vb-cc-actions">' +
+      '<button type="button" class="vb-cc-btn vb-cc-decline" id="vbCcDecline">Decline</button>' +
+      '<button type="button" class="vb-cc-btn vb-cc-accept" id="vbCcAccept">Accept</button>' +
+      "</div>";
+    document.body.appendChild(banner);
+    document.getElementById("vbCcAccept").addEventListener("click", function () {
+      setConsent("granted");
+      removeBanner();
+      loadConsentedTags();
+    });
+    document.getElementById("vbCcDecline").addEventListener("click", function () {
+      setConsent("denied");
+      removeBanner();
+    });
+  }
+
+  /* Let visitors reopen the choice from a "Cookie Settings" footer link. */
+  window.vbOpenCookieSettings = function () {
+    buildBanner();
+  };
+
+  function init() {
+    var links = document.querySelectorAll(".vb-cookie-settings");
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener("click", function (e) {
+        e.preventDefault();
+        window.vbOpenCookieSettings();
+      });
+    }
+    var consent = getConsent();
+    if (consent === "granted") {
+      loadConsentedTags();
+    } else if (consent !== "denied") {
+      buildBanner();
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
