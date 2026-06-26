@@ -120,6 +120,13 @@
         <!-- TODO: connect form submission to backend / email handler -->
         <form id="eligibilityForm" class="long-form" novalidate>
 
+          <!-- Anti-spam honeypot: hidden from real users; submissions that fill it are silently rejected -->
+          <div class="hp-field" aria-hidden="true">
+            <label>Company website (leave this field empty)
+              <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
+
           <div class="form-step">
             <h3>Step 1 — Tell Us About Your Situation</h3>
 

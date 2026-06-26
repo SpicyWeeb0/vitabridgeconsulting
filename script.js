@@ -731,15 +731,53 @@ if (forgotPassword) {
 /* ============================
    LONG-FORM PAGES (eligibility / consultation / program overview)
    Show the thank-you state on submit. No backend wired up yet.
+
+   Anti-spam hardening (all client-side until a backend exists):
+     1. Honeypot  — the hidden `company_website` field must stay empty.
+     2. Timing    — a real person takes >3s to fill a multi-step form; bots submit instantly.
+     3. Origin    — only accept submissions served from our own known hosts.
+   When a real backend is wired up, run guardLeadForm()'s checks server-side too —
+   client-side checks deter naive bots but can be bypassed by a determined attacker.
 ============================ */
 (function () {
+  // Hosts the forms are legitimately served from (extend if you add domains/staging).
+  const ALLOWED_HOSTS = [
+    "vitabridgeconsulting.net",
+    "www.vitabridgeconsulting.net",
+    "localhost",
+    "127.0.0.1",
+  ];
+  const MIN_FILL_MS = 3000; // submissions faster than this are almost certainly bots
+
+  function isSpam(form, loadedAt) {
+    // 1. Honeypot tripped
+    const hp = form.querySelector('input[name="company_website"]');
+    if (hp && hp.value.trim() !== "") return "honeypot";
+    // 2. Submitted impossibly fast
+    if (Date.now() - loadedAt < MIN_FILL_MS) return "too-fast";
+    // 3. Off-origin (page cloned/scraped onto another domain, or cross-site post)
+    if (ALLOWED_HOSTS.indexOf(window.location.hostname) === -1) return "bad-origin";
+    return null;
+  }
+
   const formIds = ["eligibilityForm", "consultationForm", "programOverviewForm"];
   formIds.forEach((id) => {
     const form = document.getElementById(id);
     const thankYou = document.getElementById("thankYou");
     if (!form || !thankYou) return;
+    const loadedAt = Date.now(); // when this form became available to the user
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      const reason = isSpam(form, loadedAt);
+      if (reason) {
+        // Silently drop: don't tell the bot why, don't process. Show the same
+        // thank-you so automated probes can't distinguish accept from reject.
+        if (window.console) console.warn("Submission blocked:", reason);
+        form.reset();
+      }
+      // else: TODO wire real backend POST here (and re-check isSpam() server-side).
+
       form.setAttribute("hidden", "");
       thankYou.removeAttribute("hidden");
       thankYou.scrollIntoView({ behavior: "smooth", block: "start" });

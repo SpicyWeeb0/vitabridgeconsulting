@@ -3413,3 +3413,14 @@ fieldset.form-field label input[type="number"] {
   .vb-cc-actions { justify-content: flex-end; }
 }
 
+/* Anti-spam honeypot field — visually removed for humans but still present in the DOM
+   so naive bots fill it. Deliberately NOT display:none (many bots skip those). */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
